@@ -99,5 +99,17 @@ class Ptc_Blocks_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ptc-blocks-public.js', array( 'jquery' ), $this->version, false );
 
 	}
-
+}
+if( !function_exists( 'ptc_get_the_post_thumbnail' ) ) {
+	
+	function ptc_get_the_post_thumbnail( $size = 'post-thumbnail' ) {
+		
+		if( has_post_thumbnail() ) {
+			$url = get_the_post_thumbnail_url( '', $size );
+		}else{
+			$url = get_template_directory_uri().'/asset/img/'.$size.'.png';
+		}
+		
+		return $url;
+	}
 }

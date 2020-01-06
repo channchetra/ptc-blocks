@@ -27,29 +27,16 @@
  * @subpackage Ptc_Blocks/blocks
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
-
-use Carbon_Fields\Block;
-use Carbon_Fields\Field;
-
-add_action( 'carbon_fields_register_fields', 'add_ptc_blockgrid' );
-function add_ptc_blockgrid() {
-    Block::make( __( 'PTC Row' ) )
-    ->add_fields( array(
-        Field::make( 'text', 'heading', __( 'Block Heading' ) ),
-    ))
-    ->set_category( 'custom-category', __( 'Custom Blocks' ), 'smiley' )
-    ->set_icon( 'menu-alt' )
-    ->set_inner_blocks( true )
-    ->set_render_callback( function ( $fields, $attributes, $inner_blocks ) {
-        ?>
-
-        <!-- <div class="row"> -->
-        <div class="block">
-            <div class="block__heading">
-                <h1><?php echo esc_html( $fields['heading'] ); ?></h1>
-            </div><!-- /.block__heading -->
-        </div><!-- /.block -->
-
-        <?php
-    } );
+add_filter( 'wp_bootstrap_blocks_container_classes', 'my_custom_container_classes', 10, 2 );
+function my_custom_container_classes( $classes, $attributes ) {
+    if ( ! empty( $attributes['className'] ) ) {
+        return [ 'container', $attributes['className']];
+    }else{
+        return [ 'container', 'plr-lg-30', 'plr-md-30' ];
+    }
+}
+add_filter( 'wp_bootstrap_blocks_container_default_attributes', 'my_container_default_attributes', 10, 1 );
+function my_container_default_attributes( $default_attributes ) {
+    $default_attributes['marginAfter'] = '';
+    return $default_attributes;
 }

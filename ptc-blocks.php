@@ -37,12 +37,12 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PTC_BLOCKS_VERSION', '1.0.0' );
 
-defined ( 'ABSPATH' ) || exit;
-function ptc_blocks_setting_up() {
-	require_once ( 'vendor/autoload.php' );
-	\Carbon_Fields\Carbon_Fields::boot();
-}
-add_action( 'after_setup_theme', 'ptc_blocks_setting_up' );
+// defined ( 'ABSPATH' ) || exit;
+// function ptc_blocks_setting_up() {
+// 	require_once ( ABSPATH . 'vendor/autoload.php' );
+// 	\Carbon_Fields\Carbon_Fields::boot();
+// }
+// add_action( 'after_setup_theme', 'ptc_blocks_setting_up' );
 
 /**
  * The code that runs during plugin activation.
@@ -72,7 +72,8 @@ register_deactivation_hook( __FILE__, 'deactivate_ptc_blocks' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-ptc-blocks.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-grid.php';
-
+require plugin_dir_path( __FILE__ ) . 'blocks/block-slider.php';
+// require plugin_dir_path( __FILE__ ) . 'blocks/block-1.php';
 /**
  * Begins execution of the plugin.
  *
