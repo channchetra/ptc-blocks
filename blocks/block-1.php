@@ -27,10 +27,232 @@
  * @subpackage Ptc_Blocks/blocks
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
+if ( function_exists( 'lazyblocks' ) ) :
+
+    lazyblocks()->add_block( array(
+        'id' => 158,
+        'title' => 'PTC Block 1',
+        'icon' => 'dashicons dashicons-welcome-widgets-menus',
+        'keywords' => array(
+            0 => 'List Post',
+            1 => 'Style1',
+        ),
+        'slug' => 'lazyblock/ptc-block-1',
+        'description' => '',
+        'category' => 'lazyblocks',
+        'category_label' => 'lazyblocks',
+        'supports' => array(
+            'customClassName' => true,
+            'anchor' => false,
+            'align' => array(
+                0 => 'wide',
+                1 => 'full',
+            ),
+            'html' => false,
+            'multiple' => true,
+            'inserter' => true,
+        ),
+        'ghostkit' => array(
+            'supports' => array(
+                'spacings' => false,
+                'display' => false,
+                'scrollReveal' => false,
+            ),
+        ),
+        'controls' => array(
+            'control_b04b724e77' => array(
+                'label' => 'Title',
+                'name' => 'block_title',
+                'type' => 'text',
+                'child_of' => '',
+                'default' => '',
+                'characters_limit' => '',
+                'placeholder' => '',
+                'help' => '',
+                'placement' => 'inspector',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'choices' => array(
+                ),
+                'checked' => 'false',
+                'allow_null' => 'false',
+                'multiple' => 'false',
+                'allowed_mime_types' => array(
+                ),
+                'alpha' => 'false',
+                'min' => '',
+                'max' => '',
+                'step' => '',
+                'date_time_picker' => 'date_time',
+                'multiline' => 'false',
+                'rows_min' => '',
+                'rows_max' => '',
+                'rows_label' => '',
+                'rows_add_button_label' => '',
+                'rows_collapsible' => 'true',
+                'rows_collapsed' => 'true',
+            ),
+            'control_1a6a644950' => array(
+                'label' => 'Category ID',
+                'name' => 'cat_id',
+                'type' => 'number',
+                'child_of' => '',
+                'default' => '',
+                'characters_limit' => '',
+                'placeholder' => '',
+                'help' => '',
+                'placement' => 'inspector',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'choices' => array(
+                ),
+                'checked' => 'false',
+                'allow_null' => 'false',
+                'multiple' => 'false',
+                'allowed_mime_types' => array(
+                ),
+                'alpha' => 'false',
+                'min' => '',
+                'max' => '',
+                'step' => '',
+                'date_time_picker' => 'date_time',
+                'multiline' => 'false',
+                'rows_min' => '',
+                'rows_max' => '',
+                'rows_label' => '',
+                'rows_add_button_label' => '',
+                'rows_collapsible' => 'true',
+                'rows_collapsed' => 'true',
+            ),
+            'control_d2190e430f' => array(
+                'label' => 'Posts per Page',
+                'name' => 'posts_per_page',
+                'type' => 'range',
+                'child_of' => '',
+                'default' => '',
+                'characters_limit' => '',
+                'placeholder' => '',
+                'help' => '',
+                'placement' => 'inspector',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'choices' => array(
+                ),
+                'checked' => 'false',
+                'allow_null' => 'false',
+                'multiple' => 'false',
+                'allowed_mime_types' => array(
+                ),
+                'alpha' => 'false',
+                'min' => '1',
+                'max' => '10',
+                'step' => '',
+                'date_time_picker' => 'date_time',
+                'multiline' => 'false',
+                'rows_min' => '',
+                'rows_max' => '',
+                'rows_label' => '',
+                'rows_add_button_label' => '',
+                'rows_collapsible' => 'true',
+                'rows_collapsed' => 'true',
+            ),
+            'control_766ba645fe' => array(
+                'label' => 'Link to',
+                'name' => 'link_cat_id',
+                'type' => 'text',
+                'child_of' => '',
+                'default' => '',
+                'characters_limit' => '',
+                'placeholder' => '',
+                'help' => '',
+                'placement' => 'inspector',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'choices' => array(
+                ),
+                'checked' => 'false',
+                'allow_null' => 'false',
+                'multiple' => 'false',
+                'allowed_mime_types' => array(
+                ),
+                'alpha' => 'false',
+                'min' => '',
+                'max' => '',
+                'step' => '',
+                'date_time_picker' => 'date_time',
+                'multiline' => 'false',
+                'rows_min' => '',
+                'rows_max' => '',
+                'rows_label' => '',
+                'rows_add_button_label' => '',
+                'rows_collapsible' => 'true',
+                'rows_collapsed' => 'true',
+            ),
+            'control_cd297b4624' => array(
+                'label' => 'Character',
+                'name' => 'character',
+                'type' => 'range',
+                'child_of' => '',
+                'default' => '',
+                'characters_limit' => '',
+                'placeholder' => '',
+                'help' => '',
+                'placement' => 'inspector',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'choices' => array(
+                ),
+                'checked' => 'false',
+                'allow_null' => 'false',
+                'multiple' => 'false',
+                'allowed_mime_types' => array(
+                ),
+                'alpha' => 'false',
+                'min' => '10',
+                'max' => '150',
+                'step' => '5',
+                'date_time_picker' => 'date_time',
+                'multiline' => 'false',
+                'rows_min' => '',
+                'rows_max' => '',
+                'rows_label' => '',
+                'rows_add_button_label' => '',
+                'rows_collapsible' => 'true',
+                'rows_collapsed' => 'true',
+            ),
+        ),
+        'code' => array(
+            'editor_html' => '',
+            'editor_callback' => '',
+            'editor_css' => '',
+            'frontend_html' => '',
+            'frontend_callback' => '',
+            'frontend_css' => '',
+            'show_preview' => 'always',
+            'single_output' => true,
+            'use_php' => true,
+        ),
+        'condition' => array(
+            0 => 'page',
+        ),
+    ) );
+    
+endif;
+
 // filter for Frontend output.
-add_filter( 'lazyblock/block-slider/frontend_callback', 'my_block_output', 10, 2 );
+add_filter( 'lazyblock/ptc-block-1/frontend_callback', 'my_block_output', 10, 2 );
 // filter for Editor output.
-add_filter( 'lazyblock/block-slider/editor_callback', 'my_block_output', 10, 2 );
+add_filter( 'lazyblock/ptc-block-1/editor_callback', 'my_block_output', 10, 2 );
 if ( ! function_exists( 'my_block_output' ) ) :
     /**
      * Test Render Callback
@@ -41,45 +263,77 @@ if ( ! function_exists( 'my_block_output' ) ) :
     function my_block_output( $output, $attributes ) {
         ob_start();
         $atts = [
-                'cat_id'			=> '',
-                'posts_per_page'	=> 4 ];
+			'cat_id' 		=> '', // category name ( multi category seperate by coma ',')
+			'posts_per_page'=> '', // number of posts per page
+			'offset'		=> 0, 
+			'title'			=> '', // title of block title
+			'link_cat_id'	=> '',  // the block title's link to a category list
+            'character'			=> 75
+        ];
     
         // WP_Query arguments
         $args = array(
-            'post_type'			=> array( 'post' ),
-            'post_status'		=> array( 'publish' ),
-            'posts_per_page'	=> $atts['posts_per_page'],
-            'cat'				=> $atts['cat_id']
+            'post_type'             => array( 'post' ),
+            'post_status'           => array( 'publish' ),
+            'posts_per_page'        => $atts['posts_per_page'],
+            'offset'        		=> $atts['offset'],
+            'cat'					=> $atts['cat_id']
         );
-        
-        // The Query
-        $slider_query = new WP_Query( $args );
+        $block_2_query = new WP_Query( $args );
         // The Loop
-        if ( $slider_query->have_posts() ) { ?>
-        <!-- </div> -->
-        <div class="slideshow">
-            <div class="slick-slideshow">
-        <?php
-            while ( $slider_query->have_posts() ) :
-                $slider_query->the_post(); ?>
-                <div class="slick-item">
-                    <div class="slick-photo">
-                        <div class="aspect-ratio">
-                            <div class="img" style="background-image: url(<?php echo ptc_get_the_post_thumbnail('large'); ?>);" ></div>
-                        </div>
-                    </div>
-                    <div class="primary-background-color">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </div>
-                </div>
+        if ( $block_2_query->have_posts() ) { 
+            // To display the block title use the_block_title()
+            if( $atts['title'] != '' ){
+                $arr = [
+                    'cat_id'	=> $atts['link_cat_id'], 
+                    'title'	=> $atts['title'],
+                ];
+                the_block_title( $arr );
+            } ?>
+
+            <div class="b-2">
+
             <?php
-            endwhile; ?>
-            </div>
+            $min = 4;
+            $data = array();
+            while( $block_2_query -> have_posts() ) {
+                $block_2_query->the_post();
+                array_push( 
+                    $data, 
+                    array(
+                        'title'		=> get_the_title(),
+                        'permalink'	=> get_the_permalink(),
+                        'date'		=> get_the_date(),
+                    )
+                );
+                $min --;
+            }
+            if( $min > 0 ) {
+                while( $min > 0 ) {
+                    array_push( 
+                        $data, 
+                        array(
+                            'title' 	=> '',
+                            'permalink'	=> '',
+                            'date'		=> '',
+                        )
+                    );
+                    $min --;
+                }
+            }
+            $html = '<div class="b-item-wrap">
+                        <div class="b-item">
+                            <div class="b-title margin-bottom-15"><a href="%s">%s</a></div>
+                            <div class="b-cat">%s</div>
+                        </div>
+                    </div>';
+            foreach( $data as $arr ){
+                printf( $html, $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 85, '...' ),  $arr['date'] );
+            }
+            ?>
         </div>
-        <!-- <div> -->
         <?php
         }
-        // Restore original Post Data
         wp_reset_postdata();
         // Return code
         return ob_get_clean();

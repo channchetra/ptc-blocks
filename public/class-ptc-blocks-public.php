@@ -113,3 +113,14 @@ if( !function_exists( 'ptc_get_the_post_thumbnail' ) ) {
 		return $url;
 	}
 }
+
+if( ! function_exists( 'the_blog_title' ) ) {
+	function the_blog_title( $arr ) {
+		$title = '<div class="block-title2 primary-color">'.$arr['title'].'</div>';
+		$link = get_term_link( $arr['terms'], $arr['taxonomy'] );
+		if( ! is_wp_error( $link ) )
+		$title = '<a class="primary-color" href="' . esc_url( $link ) . '">' . esc_html( $arr['title'] ) . '</a>';
+		$html =     '<div class="block-title2 primary-color">%s</div>';
+		printf( $html, $title );
+	}
+}

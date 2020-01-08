@@ -137,7 +137,7 @@ if ( function_exists( 'lazyblocks' ) ) :
             'frontend_callback' => '',
             'frontend_css' => '',
             'show_preview' => 'always',
-            'single_output' => false,
+            'single_output' => true,
             'use_php' => true,
         ),
         'condition' => array(
@@ -149,29 +149,25 @@ endif;
 
 
 // filter for Frontend output.
-add_filter( 'lazyblock/block-slider/frontend_callback', 'my_block_output', 10, 2 );
+add_filter( 'lazyblock/block-slider/frontend_callback', 'ptc_slider_output', 10, 2 );
 // filter for Editor output.
-add_filter( 'lazyblock/block-slider/editor_callback', 'my_block_output', 10, 2 );
-if ( ! function_exists( 'my_block_output' ) ) :
+add_filter( 'lazyblock/block-slider/editor_callback', 'ptc_slider_output', 10, 2 );
+if ( ! function_exists( 'ptc_slider_output' ) ) :
     /**
      * Test Render Callback
      *
      * @param string $output - block output.
      * @param array  $attributes - block attributes.
      */
-    function my_block_output( $output, $attributes ) {
-        ob_start();
-        $atts = [
-                'cat_id'			=> '',
-                'posts_per_page'	=> 4 ];
-    
+    function ptc_slider_output( $output, $attributes ) {
+        ob_start();    
         // WP_Query arguments
-        $args = array(
-            'post_type'			=> array( 'post' ),
-            'post_status'		=> array( 'publish' ),
-            'posts_per_page'	=> $atts['posts_per_page'],
-            'cat'				=> $atts['cat_id']
-        );
+        $args = [
+            'post_type'			=> ['post'],
+            'post_status'		=> ['publish'],
+            'posts_per_page'	=> $attributes['posts_per_page'],
+            'cat'				=> $attributes['cat_id']
+        ];
         
         // The Query
         $slider_query = new WP_Query( $args );
@@ -197,7 +193,6 @@ if ( ! function_exists( 'my_block_output' ) ) :
             endwhile; ?>
             </div>
         </div>
-        <!-- <div> -->
         <?php
         }
         // Restore original Post Data
@@ -206,3 +201,5 @@ if ( ! function_exists( 'my_block_output' ) ) :
         return ob_get_clean();
     }
 endif;
+// disable block frontend wrapper.
+add_filter( 'lazyblock/block-slider/frontend_allow_wrapper', '__return_false' );
