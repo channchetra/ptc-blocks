@@ -71,7 +71,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'help' => '',
                 'placement' => 'inspector',
                 'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'true',
+                'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
                 'choices' => array(
@@ -105,7 +105,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'help' => '',
                 'placement' => 'inspector',
                 'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'true',
+                'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
                 'choices' => array(

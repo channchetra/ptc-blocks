@@ -250,34 +250,25 @@ if ( function_exists( 'lazyblocks' ) ) :
 endif;
 
 // filter for Frontend output.
-add_filter( 'lazyblock/ptc-block-1/frontend_callback', 'my_block_output', 10, 2 );
+add_filter( 'lazyblock/ptc-block-1/frontend_callback', 'ptc_block_01', 10, 2 );
 // filter for Editor output.
-add_filter( 'lazyblock/ptc-block-1/editor_callback', 'my_block_output', 10, 2 );
-if ( ! function_exists( 'my_block_output' ) ) :
+add_filter( 'lazyblock/ptc-block-1/editor_callback', 'ptc_block_01', 10, 2 );
+if ( ! function_exists( 'ptc_block_01' ) ) :
     /**
      * Test Render Callback
      *
      * @param string $output - block output.
      * @param array  $attributes - block attributes.
      */
-    function my_block_output( $output, $attributes ) {
-        ob_start();
-        $atts = [
-			'cat_id' 		=> '', // category name ( multi category seperate by coma ',')
-			'posts_per_page'=> '', // number of posts per page
-			'offset'		=> 0, 
-			'title'			=> '', // title of block title
-			'link_cat_id'	=> '',  // the block title's link to a category list
-            'character'			=> 75
-        ];
-    
+    function ptc_block_01( $output, $attributes ) {
+        ob_start();    
         // WP_Query arguments
         $args = array(
             'post_type'             => array( 'post' ),
             'post_status'           => array( 'publish' ),
-            'posts_per_page'        => $atts['posts_per_page'],
-            'offset'        		=> $atts['offset'],
-            'cat'					=> $atts['cat_id']
+            'posts_per_page'        => $attributes['posts_per_page'],
+            // 'offset'        		=> $atts['offset'],
+            'cat'					=> $attributes['cat_id']
         );
         $block_2_query = new WP_Query( $args );
         // The Loop

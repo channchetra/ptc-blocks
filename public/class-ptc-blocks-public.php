@@ -114,8 +114,8 @@ if( !function_exists( 'ptc_get_the_post_thumbnail' ) ) {
 	}
 }
 
-if( ! function_exists( 'the_blog_title' ) ) {
-	function the_blog_title( $arr ) {
+if( ! function_exists( 'ptc_the_blog_title' ) ) {
+	function ptc_the_blog_title( $arr ) {
 		$title = '<div class="block-title2 primary-color">'.$arr['title'].'</div>';
 		$link = get_term_link( $arr['terms'], $arr['taxonomy'] );
 		if( ! is_wp_error( $link ) )
