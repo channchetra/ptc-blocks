@@ -274,12 +274,12 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
         // The Loop
         if ( $block_2_query->have_posts() ) { 
             // To display the block title use the_block_title()
-            if( $atts['title'] != '' ){
+            if( $attributes['block_title'] != '' ){
                 $arr = [
-                    'cat_id'	=> $atts['link_cat_id'], 
-                    'title'	=> $atts['title'],
+                    'cat_id'	=> $attributes['link_cat_id'], 
+                    'title'	=> $attributes['block_title'],
                 ];
-                the_block_title( $arr );
+                ptc_the_blog_title( $arr );
             } ?>
 
             <div class="b-2">

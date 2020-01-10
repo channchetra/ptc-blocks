@@ -114,13 +114,26 @@ if( !function_exists( 'ptc_get_the_post_thumbnail' ) ) {
 	}
 }
 
-if( ! function_exists( 'ptc_the_blog_title' ) ) {
-	function ptc_the_blog_title( $arr ) {
-		$title = '<div class="block-title2 primary-color">'.$arr['title'].'</div>';
-		$link = get_term_link( $arr['terms'], $arr['taxonomy'] );
-		if( ! is_wp_error( $link ) )
-		$title = '<a class="primary-color" href="' . esc_url( $link ) . '">' . esc_html( $arr['title'] ) . '</a>';
-		$html =     '<div class="block-title2 primary-color">%s</div>';
-		printf( $html, $title );
+function ptc_the_block_title( $arr ){
+	$link = '<div class="block-title2 primary-color">'.$arr['title'].'</div>';
+	if ( isset( $arr['cat_id'] ) && $arr['cat_id'] != '' ) {
+		// Get the URL of this category
+		$category_link = get_category_link( $arr['cat_id'] );
+	}	
+	if ( isset( $category_link ) && $category_link != '' ) {
+		$link = '<a class="primary-color" href="'. esc_url( $category_link ) .'">'.$arr['title'].'</a>';
 	}
+	if ( isset( $arr['taxonomy'] ) && $arr['taxonomy'] != '' ) {
+		$href = get_term_link( $arr['type_slug'], $arr['taxonomy'] );
+		if ( !is_wp_error( $href ) )
+		$link = '<a class="primary-color" href="'. esc_url( $href ) .'">'.esc_html( $arr['title'] ).'</a>';
+	}
+	if( isset( $arr['link'] ) ) {
+		$link = '<a class="primary-color" href="'. $arr['link'] .'">'.$arr['title'].'</a>';
+	}
+	if ( isset( $arr['cat_id'] ) && $arr['cat_id'] == '' ) {
+		$link = '<a class="primary-color" href="#">'.$arr['title'].'</a>';
+	}
+    $html = '<div class="block-title2 primary-color">%s</div>';
+    printf( $html, $link );
 }
