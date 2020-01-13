@@ -279,7 +279,7 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
                     'cat_id'	=> $attributes['link_cat_id'], 
                     'title'	=> $attributes['block_title'],
                 ];
-                ptc_the_blog_title( $arr );
+                ptc_the_block_title( $arr );
             } ?>
 
             <div class="b-2">
