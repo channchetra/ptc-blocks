@@ -101,15 +101,12 @@ class Ptc_Blocks_Public {
 	}
 }
 if( !function_exists( 'ptc_get_the_post_thumbnail' ) ) {
-	
 	function ptc_get_the_post_thumbnail( $size = 'post-thumbnail' ) {
-		
 		if( has_post_thumbnail() ) {
 			$url = get_the_post_thumbnail_url( '', $size );
 		}else{
-			$url = get_template_directory_uri().'/asset/img/'.$size.'.png';
+			$url = plugin_dir_url( __FILE__ ) .'img/'.$size.'.png';
 		}
-		
 		return $url;
 	}
 }

@@ -30,14 +30,14 @@
 if ( function_exists( 'lazyblocks' ) ) :
 
     lazyblocks()->add_block( array(
-        'id' => 158,
-        'title' => 'PTC Block 1',
-        'icon' => 'dashicons dashicons-welcome-widgets-menus',
+        'id' => 268,
+        'title' => 'PTC Videos Block',
+        'icon' => 'dashicons dashicons-format-video',
         'keywords' => array(
-            0 => 'List Post',
-            1 => 'Style1',
+            0 => 'Video',
+            1 => 'Gallaries',
         ),
-        'slug' => 'lazyblock/ptc-block-1',
+        'slug' => 'lazyblock/ptc-video-block',
         'description' => '',
         'category' => 'lazyblocks',
         'category_label' => 'lazyblocks',
@@ -60,8 +60,8 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_b04b724e77' => array(
-                'label' => 'Title',
+            'control_13787549df' => array(
+                'label' => 'Block Title',
                 'name' => 'block_title',
                 'type' => 'text',
                 'child_of' => '',
@@ -94,7 +94,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsible' => 'true',
                 'rows_collapsed' => 'true',
             ),
-            'control_1a6a644950' => array(
+            'control_5fb94e407b' => array(
                 'label' => 'Category ID',
                 'name' => 'cat_id',
                 'type' => 'number',
@@ -128,41 +128,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsible' => 'true',
                 'rows_collapsed' => 'true',
             ),
-            'control_d2190e430f' => array(
-                'label' => 'Posts per Page',
-                'name' => 'posts_per_page',
-                'type' => 'range',
-                'child_of' => '',
-                'default' => '',
-                'characters_limit' => '',
-                'placeholder' => '',
-                'help' => '',
-                'placement' => 'inspector',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'choices' => array(
-                ),
-                'checked' => 'false',
-                'allow_null' => 'false',
-                'multiple' => 'false',
-                'allowed_mime_types' => array(
-                ),
-                'alpha' => 'false',
-                'min' => '1',
-                'max' => '10',
-                'step' => '',
-                'date_time_picker' => 'date_time',
-                'multiline' => 'false',
-                'rows_min' => '',
-                'rows_max' => '',
-                'rows_label' => '',
-                'rows_add_button_label' => '',
-                'rows_collapsible' => 'true',
-                'rows_collapsed' => 'true',
-            ),
-            'control_766ba645fe' => array(
+            'control_295aad4979' => array(
                 'label' => 'Link to',
                 'name' => 'link_cat_id',
                 'type' => 'text',
@@ -196,9 +162,9 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsible' => 'true',
                 'rows_collapsed' => 'true',
             ),
-            'control_cd297b4624' => array(
-                'label' => 'Character',
-                'name' => 'character',
+            'control_d549d246e0' => array(
+                'label' => 'Posts per Page',
+                'name' => 'posts_per_page',
                 'type' => 'range',
                 'child_of' => '',
                 'default' => '',
@@ -218,9 +184,9 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'allowed_mime_types' => array(
                 ),
                 'alpha' => 'false',
-                'min' => '10',
-                'max' => '150',
-                'step' => '5',
+                'min' => '',
+                'max' => '',
+                'step' => '',
                 'date_time_picker' => 'date_time',
                 'multiline' => 'false',
                 'rows_min' => '',
@@ -239,7 +205,7 @@ if ( function_exists( 'lazyblocks' ) ) :
             'frontend_callback' => '',
             'frontend_css' => '',
             'show_preview' => 'always',
-            'single_output' => true,
+            'single_output' => false,
             'use_php' => true,
         ),
         'condition' => array(
@@ -250,17 +216,17 @@ if ( function_exists( 'lazyblocks' ) ) :
 endif;
 
 // filter for Frontend output.
-add_filter( 'lazyblock/ptc-block-1/frontend_callback', 'ptc_block_01', 10, 2 );
+add_filter( 'lazyblock/ptc-video-block/frontend_callback', 'ptc_video_block_output', 10, 2 );
 // filter for Editor output.
-add_filter( 'lazyblock/ptc-block-1/editor_callback', 'ptc_block_01', 10, 2 );
-if ( ! function_exists( 'ptc_block_01' ) ) :
+add_filter( 'lazyblock/ptc-video-block/editor_callback', 'ptc_video_block_output', 10, 2 );
+if ( ! function_exists( 'ptc_video_block_output' ) ) :
     /**
      * Test Render Callback
      *
      * @param string $output - block output.
      * @param array  $attributes - block attributes.
      */
-    function ptc_block_01( $output, $attributes ) {
+    function ptc_video_block_output( $output, $attributes ) {
         ob_start();    
         // WP_Query arguments
         $args = array(
@@ -270,9 +236,9 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
             // 'offset'        		=> $atts['offset'],
             'cat'					=> $attributes['cat_id']
         );
-        $block_1_query = new WP_Query( $args );
+        $block_video_query = new WP_Query( $args );
         // The Loop
-        if ( $block_1_query->have_posts() ) { 
+        if ( $block_video_query->have_posts() ) { 
             // To display the block title use the_block_title()
             if( $attributes['block_title'] != '' ){
                 $arr = [
@@ -285,16 +251,17 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
             <div class="b-2">
 
             <?php
-            $min = 4;
+            $min = 1;
             $data = array();
-            while( $block_1_query -> have_posts() ) {
-                $block_1_query->the_post();
+            while( $block_video_query -> have_posts() ) {
+                $block_video_query->the_post();
                 array_push( 
                     $data, 
                     array(
                         'title'		=> get_the_title(),
                         'permalink'	=> get_the_permalink(),
                         'date'		=> get_the_date(),
+                        'img_thumb' => ptc_get_the_post_thumbnail('large'),
                     )
                 );
                 $min --;
@@ -307,19 +274,25 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
                             'title' 	=> '',
                             'permalink'	=> '',
                             'date'		=> '',
+                            'img_thumb' => '',
                         )
                     );
                     $min --;
                 }
             }
-            $html = '<div class="b-item-wrap">
-                        <div class="b-item">
-                            <div class="b-title margin-bottom-15"><a href="%s">%s</a></div>
-                            <div class="b-cat">%s</div>
+            $html = '<ul class="b-item-wrap youtube-player">
+                        <div class="b-item row">
+                            <div class="b-thumnail-wrap col-sm-7 col-xs-12">
+                                <div class="b-thumnail"><li class="embed-responsive embed-responsive-6by4"><div class="img" style="background-image: url(%s);left: 0;top: 0;right: 0;bottom: 0;position: absolute;background-size: cover;background-position: 50%%;background-repeat: no-repeat;"></div></li></div>
+                            </div>
+                            <div class="b-title-wrap col-sm-5 col-xs-12">
+                                <a href="%s" class="b-title d-block">%s</a>
+                                <div class="b-date">%s</div>
+                            </div>
                         </div>
-                    </div>';
+                    </ul>';
             foreach( $data as $arr ){
-                printf( $html, $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 85, '...' ),  $arr['date'] );
+                printf( $html,  $arr['img_thumb'],  $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 85, '...' ),  $arr['date'] );
             }
             ?>
         </div>
@@ -330,3 +303,5 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
         return ob_get_clean();
     }
 endif;
+// disable block frontend wrapper.
+add_filter( 'lazyblock/ptc-video-block/frontend_allow_wrapper', '__return_false' );

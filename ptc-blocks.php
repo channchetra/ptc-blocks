@@ -74,6 +74,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-ptc-blocks.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-grid.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-slider.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-1.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-video.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-gallery.php';
 /**
  * Begins execution of the plugin.
  *
