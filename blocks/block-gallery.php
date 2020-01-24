@@ -196,24 +196,6 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsible' => 'true',
                 'rows_collapsed' => 'true',
             ),
-            'control_testingblock' => array(
-                'label' => 'Testing Block',
-                'name' => 'testing_block',
-                'type' => 'text',
-                'placement' => 'inspector',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'checked' => 'false',
-                'allow_null' => 'false',
-                'multiple' => 'false',
-                'allowed_mime_types' => array(
-                ),
-                'alpha' => 'false',
-                'date_time_picker' => 'date_time',
-                'multiline' => 'false',
-                'rows_collapsible' => 'true',
-                'rows_collapsed' => 'true',
-            ),
         ),
         'code' => array(
             'editor_html' => '',
@@ -239,7 +221,7 @@ add_filter( 'lazyblock/ptc-block-picture/frontend_callback', 'ptc_picture_block_
 add_filter( 'lazyblock/ptc-block-picture/editor_callback', 'ptc_picture_block_output', 10, 2 );
 if ( ! function_exists( 'ptc_picture_block_output' ) ) :
     /**
-     * Test Render Callback
+     * Render Callback
      *
      * @param string $output - block output.
      * @param array  $attributes - block attributes.
