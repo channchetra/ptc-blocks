@@ -76,7 +76,9 @@ require plugin_dir_path( __FILE__ ) . 'blocks/block-slider.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-1.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-video.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-gallery.php';
-require plugin_dir_path( __FILE__ ) . 'blocks/block-link.php';
+// require plugin_dir_path( __FILE__ ) . 'blocks/block-link.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-other-link.php';
+// require plugin_dir_path( __FILE__ ) . 'blocks/block-video-two.php';
 /**
  * Begins execution of the plugin.
  *
