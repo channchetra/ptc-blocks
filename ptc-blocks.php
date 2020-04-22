@@ -37,13 +37,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PTC_BLOCKS_VERSION', '1.0.0' );
 
-// defined ( 'ABSPATH' ) || exit;
-// function ptc_blocks_setting_up() {
-// 	require_once ( ABSPATH . 'vendor/autoload.php' );
-// 	\Carbon_Fields\Carbon_Fields::boot();
-// }
-// add_action( 'after_setup_theme', 'ptc_blocks_setting_up' );
-
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-ptc-blocks-activator.php
@@ -64,7 +57,6 @@ function deactivate_ptc_blocks() {
 
 register_activation_hook( __FILE__, 'activate_ptc_blocks' );
 register_deactivation_hook( __FILE__, 'deactivate_ptc_blocks' );
-
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.

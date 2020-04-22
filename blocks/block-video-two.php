@@ -1,6 +1,8 @@
 <?php
 if ( function_exists( 'lazyblocks' ) ) :
 
+    $category = new Ptc_Blocks();
+
     lazyblocks()->add_block( array(
         'id' => 14153,
         'title' => 'PTC Video Layout 02',
@@ -63,24 +65,8 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'required' => 'false',
                 'placeholder' => '',
                 'characters_limit' => '',
-                'choices' => mptc_cat_listing(),
+                'choices' => $category->mptc_cat_listing('post_tag'),
                 'multiple' => 'false',
-            ),
-            'control_a7bbb24fc4' => array(
-                'type' => 'number',
-                'name' => 'link',
-                'default' => '',
-                'label' => 'Link',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'inspector',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
             ),
             'control_365b034b62' => array(
                 'type' => 'number',
@@ -100,9 +86,9 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
             'control_83283e417f' => array(
                 'type' => 'toggle',
-                'name' => 'show-meta',
+                'name' => 'show-link',
                 'default' => '',
-                'label' => 'Show Meta',
+                'label' => 'Show Link',
                 'help' => '',
                 'child_of' => '',
                 'placement' => 'inspector',
@@ -122,7 +108,7 @@ if ( function_exists( 'lazyblocks' ) ) :
             'frontend_html' => '',
             'frontend_callback' => '',
             'frontend_css' => '',
-            'show_preview' => 'selected',
+            'show_preview' => 'always',
             'single_output' => true,
             'use_php' => true,
         ),
@@ -151,7 +137,7 @@ if ( ! function_exists( 'ptc_videotwo_output' ) ) :
         ?>
 
         <div>
-            Control value: <?php echo esc_html( $attributes['block-title'] ); ?>
+            Control value: <?php echo esc_html( $attributes['category'] ); ?>
         </div>
 
         <?php
