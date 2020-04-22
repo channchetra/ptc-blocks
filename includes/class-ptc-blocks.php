@@ -216,11 +216,10 @@ class Ptc_Blocks {
 		return $this->version;
 	}
 
-	public function mptc_cat_listing($name)
+	public function mptc_cat_listing($name = 'category')
 	{
 						
-		$taxonomies = get_terms([
-			'taxonomy' => $name,
+		$taxonomies = get_terms( $name, [
 			'hide_empty' => false,
 			'orderby' => 'name',
 			'order'   => 'ASC'
