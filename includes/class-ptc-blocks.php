@@ -221,7 +221,7 @@ class Ptc_Blocks {
 						
 		$taxonomies = get_terms([
 			'taxonomy' => $name,
-			'hide_empty' => false,
+			// 'hide_empty' => false,
 			'orderby' => 'name',
 			'order'   => 'ASC'
 		 ] );

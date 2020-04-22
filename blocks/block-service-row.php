@@ -29,6 +29,8 @@
  */
 if ( function_exists( 'lazyblocks' ) ) :
 
+    $type = new Ptc_Blocks();
+
     lazyblocks()->add_block( array(
         'id' => 58,
         'title' => 'Block Service',
@@ -73,6 +75,28 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'required' => 'false',
                 'placeholder' => 'Title block lists',
                 'characters_limit' => '',
+            ),
+            'control_c1cbcc4frd4' => array(
+                'type' => 'select',
+                'name' => 'service-type',
+                'default' => '',
+                'label' => 'Service Type',
+                'help' => '',
+                'child_of' => '',
+                'placement' => 'inspector',
+                'width' => '100',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'placeholder' => '',
+                'characters_limit' => '',
+                // 'choices' => [
+                //     ['label' => 'Hello',
+                //     'value' => 'hello']
+                // ],
+                'choices' => $type->mptc_cat_listing('service'),
+                'multiple' => 'false',
             ),
             'control_fa288944b3' => array(
                 'type' => 'repeater',
