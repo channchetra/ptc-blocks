@@ -216,4 +216,49 @@ class Ptc_Blocks {
 		return $this->version;
 	}
 
+	public function mptc_cat_listing($name)
+	{
+						
+		$taxonomies = get_terms([
+			'taxonomy' => $name,
+			'hide_empty' => false,
+			'orderby' => 'name',
+			'order'   => 'ASC'
+		 ] );
+		$array = array_column($taxonomies, 'name', 'term_id');
+		// print_r ($array);
+		$data = [];
+		foreach( $array as $key => $arr ) {
+				$val = array('label' => $arr, 'value' => $key);
+				array_push($data, $val);
+		}     
+		return $data;
+	}
 }
+// if(!function_exists('mptc_cat_listing')){
+// 	function mptc_cat_listing()
+// 	{
+					
+// 	$categories = get_categories([
+// 			'orderby' => 'name',
+// 			'order'   => 'ASC'
+// 			] );
+// 	$array = array_column($categories, 'name', 'term_id');
+// 	// print_r ($array);
+// 	$data = [];
+// 	foreach( $array as $key => $arr ) {
+// 			$val = array('label' => $arr, 'value' => $key);
+// 			array_push($data, $val);
+// 	}     
+// 	return $data;
+// 	}
+// }
+
+function my_lzb_controls_categories( $categories ) {
+    // Add new control category "My Category"
+    $categories['my-category'] = __( 'My Category' );
+
+    return $categories;
+}
+
+add_filter( 'lzb/controls/categories', 'my_lzb_controls_categories' );

@@ -32,7 +32,7 @@ function my_custom_container_classes( $classes, $attributes ) {
     if ( ! empty( $attributes['className'] ) ) {
         return [ 'container', $attributes['className']];
     }else{
-        return [ 'container', 'plr-lg-30', 'plr-md-30' ];
+        return [ 'container', 'plr-lg-30', 'plr-md-30', 'mt-5p' ];
     }
 }
 add_filter( 'wp_bootstrap_blocks_container_default_attributes', 'my_container_default_attributes', 10, 1 );
