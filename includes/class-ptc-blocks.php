@@ -217,47 +217,27 @@ class Ptc_Blocks {
 	}
 
 	public function mptc_cat_listing($name = 'category')
-	{
-						
-		$taxonomies = get_terms( $name, [
-			'hide_empty' => false,
-			'orderby' => 'name',
-			'order'   => 'ASC'
-		 ] );
-		$array = array_column($taxonomies, 'name', 'term_id');
-		// print_r ($array);
-		$data = [];
-		foreach( $array as $key => $arr ) {
-				$val = array('label' => $arr, 'value' => $key);
-				array_push($data, $val);
-		}     
+	{	
+		$taxonomies = get_terms(
+			[
+				'taxonomy' => $name,
+				'hide_empty' => false
+			]
+		);
+		if (!empty($taxonomies)) :
+			$data = [];
+			foreach ($taxonomies as $category) {
+				$new_arr = [
+					'label' => $category->name,
+					'value' => $category->term_id
+				];
+				array_push($data, $new_arr);
+			}
+		endif;
+		echo '<pre>';
+		var_dump($taxonomies);
+		echo '</pre>';
+		// die();
 		return $data;
 	}
 }
-// if(!function_exists('mptc_cat_listing')){
-// 	function mptc_cat_listing()
-// 	{
-					
-// 	$categories = get_categories([
-// 			'orderby' => 'name',
-// 			'order'   => 'ASC'
-// 			] );
-// 	$array = array_column($categories, 'name', 'term_id');
-// 	// print_r ($array);
-// 	$data = [];
-// 	foreach( $array as $key => $arr ) {
-// 			$val = array('label' => $arr, 'value' => $key);
-// 			array_push($data, $val);
-// 	}     
-// 	return $data;
-// 	}
-// }
-
-function my_lzb_controls_categories( $categories ) {
-    // Add new control category "My Category"
-    $categories['my-category'] = __( 'My Category' );
-
-    return $categories;
-}
-
-add_filter( 'lzb/controls/categories', 'my_lzb_controls_categories' );

@@ -65,7 +65,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'required' => 'false',
                 'placeholder' => '',
                 'characters_limit' => '',
-                'choices' => $category->mptc_cat_listing(),
+                'choices' => $category->mptc_cat_listing('post_tag'),
                 'multiple' => 'false',
             ),
             'control_365b034b62' => array(
