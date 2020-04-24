@@ -1,8 +1,8 @@
 <?php
 if ( function_exists( 'lazyblocks' ) ) :
 
-    $category = new Ptc_Blocks();
-
+    $option = new Ptc_Blocks();
+    
     lazyblocks()->add_block( array(
         'id' => 14153,
         'title' => 'PTC Video Layout 02',
@@ -65,7 +65,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'required' => 'false',
                 'placeholder' => '',
                 'characters_limit' => '',
-                'choices' => $category->mptc_cat_listing('post_tag'),
+                'choices' => $option->mptc_cat_listing(),
                 'multiple' => 'false',
             ),
             'control_365b034b62' => array(

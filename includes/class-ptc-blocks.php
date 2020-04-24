@@ -99,7 +99,11 @@ class Ptc_Blocks {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
+		/**
+		 * The class responsible for orchestrating the actions and filters of the
+		 * core plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ptc-blocks-autoload.php';
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -216,16 +220,40 @@ class Ptc_Blocks {
 		return $this->version;
 	}
 
+	/**
+	 * Function សម្រាប់ធ្វើការទាញយក Terms Taxonomy list ហើយបម្លែងទៅជា Array ដើម្បីប្រើក្នុង Select List របស់ Block ផ្សេងៗ
+	 * thank to @Exit https://wordpress.stackexchange.com/questions/13480/get-terms-return-errors/13482#13482
+	 * 
+	 * @param [type] $term
+	 * @return void
+	 */
+	private function custom_get_terms($term) {
+		global $wpdb;
+	   
+		$out = array();
+	   
+		$a = $wpdb->get_results($wpdb->prepare("SELECT t.name,t.slug,t.term_group,x.term_taxonomy_id,x.term_id,x.taxonomy,x.description,x.parent,x.count FROM {$wpdb->prefix}term_taxonomy x LEFT JOIN {$wpdb->prefix}terms t ON (t.term_id = x.term_id) WHERE x.taxonomy=%s;",$term));
+	   
+		foreach ($a as $b) {
+		 $obj = new stdClass();
+		 $obj->term_id = $b->term_id;
+		 $obj->name = $b->name;
+		 $obj->slug = $b->slug;
+		 $obj->term_group = $b->term_group;
+		 $obj->term_taxonomy_id = $b->term_taxonomy_id;
+		 $obj->taxonomy = $b->taxonomy;
+		 $obj->description = $b->description;
+		 $obj->parent = $b->parent;
+		 $obj->count = $b->count;
+		 $out[] = $obj;
+		}
+		return $out;
+	}
 	public function mptc_cat_listing($name = 'category')
 	{	
-		$taxonomies = get_terms(
-			[
-				'taxonomy' => $name,
-				'hide_empty' => false
-			]
-		);
+		$taxonomies = $this->custom_get_terms($name);
+		$data = [];
 		if (!empty($taxonomies)) :
-			$data = [];
 			foreach ($taxonomies as $category) {
 				$new_arr = [
 					'label' => $category->name,
@@ -233,11 +261,81 @@ class Ptc_Blocks {
 				];
 				array_push($data, $new_arr);
 			}
+			return $data;
 		endif;
-		echo '<pre>';
-		var_dump($taxonomies);
-		echo '</pre>';
-		// die();
+		$arr_none = [
+			'label' => $name . ' not registered',
+			'value' => $name . ' not registered'
+		];
+		array_push($data, $arr_none);
 		return $data;
+	}
+	 /**
+	 * Function ធ្វើការ Print ចេញនូវការបរិច្ឆេទ Post និមួយៗដែលត្រូវបង្ហាញក្នុង Blocks
+	*
+	* @return void
+	*/
+	public function ptc_posted_on()
+	{
+		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+		if (get_the_time('U') !== get_the_modified_time('U')) {
+			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
+		}
+		$time_string = sprintf(
+			$time_string,
+			esc_attr(get_the_date(DATE_W3C)),
+			esc_html(get_the_date())
+		);
+
+		$posted_on = sprintf(
+			/* translators: %s: post date. */
+			esc_html_x('%s', 'post date', 'sage'),
+			$time_string
+		);
+
+		return '<span>' . $posted_on . '</span>'; // WPCS: XSS OK.
+	}
+	/**
+	 * Function សម្រាប់ទាញយក Post thumbnail ទៅតាមទំហំដែលបានកំណត់
+	 *
+	 * @param string $size
+	 * @return void
+	 */
+	function ptc_post_thumbnail( $size = 'post-thumbnail' ) {
+		if( has_post_thumbnail() ) {
+			$url = get_the_post_thumbnail_url( '', $size );
+		}else{
+			$url = plugin_dir_url( __FILE__ ) .'img/'.$size.'.png';
+		}
+		return $url;
+	}
+	/**
+	 * Function សម្រាប់ធ្វើការបង្ហាញចេញនូវ Title នៅលើ Block និមួយក្នុងលក្ខណដែលបានកំណត់
+	 *
+	 * @param [type] $arr
+	 * @return void
+	 */
+	function ptc_the_block_title( $arr ){
+		$link = '<div class="block-title2 primary-color">'.$arr['title'].'</div>';
+		if ( isset( $arr['cat_id'] ) && $arr['cat_id'] != '' ) {
+			// Get the URL of this category
+			$category_link = get_category_link( $arr['cat_id'] );
+		}	
+		if ( isset( $category_link ) && $category_link != '' ) {
+			$link = '<a class="primary-color" href="'. esc_url( $category_link ) .'">'.$arr['title'].'</a>';
+		}
+		if ( isset( $arr['taxonomy'] ) && $arr['taxonomy'] != '' ) {
+			$href = get_term_link( $arr['type_slug'], $arr['taxonomy'] );
+			if ( !is_wp_error( $href ) )
+			$link = '<a class="primary-color" href="'. esc_url( $href ) .'">'.esc_html( $arr['title'] ).'</a>';
+		}
+		if( isset( $arr['link'] ) ) {
+			$link = '<a class="primary-color" href="'. $arr['link'] .'">'.$arr['title'].'</a>';
+		}
+		if ( isset( $arr['cat_id'] ) && $arr['cat_id'] == '' ) {
+			$link = '<a class="primary-color" href="#">'.$arr['title'].'</a>';
+		}
+		$html = '<div class="block-title2 primary-color">%s</div>';
+		printf( $html, $link );
 	}
 }
