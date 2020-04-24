@@ -20,18 +20,5 @@
  * @subpackage Ptc_Blocks/includes
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
-class Ptc_Blocks_Activator {
-
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {
 
 
-	}
-
-}

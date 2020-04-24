@@ -27,8 +27,10 @@
  * @subpackage Ptc_Blocks/blocks
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
-if ( function_exists( 'lazyblocks' ) ) :
+$option = new Ptc_Blocks();
 
+if ( function_exists( 'lazyblocks' ) ) :
+    
     lazyblocks()->add_block( array(
         'id' => 158,
         'title' => 'PTC Block 1',
@@ -95,9 +97,9 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsed' => 'true',
             ),
             'control_1a6a644950' => array(
-                'label' => 'Category ID',
+                'label' => 'Category',
                 'name' => 'cat_id',
-                'type' => 'number',
+                'type' => 'select',
                 'child_of' => '',
                 'default' => '',
                 'characters_limit' => '',
@@ -108,8 +110,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'choices' => array(
-                ),
+                'choices' => $option->mptc_cat_listing(),
                 'checked' => 'false',
                 'allow_null' => 'false',
                 'multiple' => 'false',
@@ -261,7 +262,8 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
      * @param array  $attributes - block attributes.
      */
     function ptc_block_01( $output, $attributes ) {
-        ob_start();    
+        ob_start();
+        $the_att = new Ptc_Blocks();
         // WP_Query arguments
         $args = array(
             'post_type'             => array( 'post' ),
@@ -279,7 +281,7 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
                     'cat_id'	=> $attributes['link_cat_id'], 
                     'title'	=> $attributes['block_title'],
                 ];
-                ptc_the_block_title( $arr );
+                $the_att->ptc_the_block_title( $arr );
             } ?>
 
             <div class="b-2">
@@ -294,7 +296,7 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
                     array(
                         'title'		=> get_the_title(),
                         'permalink'	=> get_the_permalink(),
-                        'date'		=> get_the_date(),
+                        'date'		=> $the_att->ptc_posted_on(),
                     )
                 );
                 $min --;

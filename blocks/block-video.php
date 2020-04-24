@@ -27,6 +27,7 @@
  * @subpackage Ptc_Blocks/blocks
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
+$option = new Ptc_Blocks();
 if ( function_exists( 'lazyblocks' ) ) :
 
     lazyblocks()->add_block( array(
@@ -95,9 +96,9 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsed' => 'true',
             ),
             'control_5fb94e407b' => array(
-                'label' => 'Category ID',
+                'label' => 'Category',
                 'name' => 'cat_id',
-                'type' => 'number',
+                'type' => 'select',
                 'child_of' => '',
                 'default' => '',
                 'characters_limit' => '',
@@ -108,8 +109,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'choices' => array(
-                ),
+                'choices' => $option->mptc_cat_listing(),
                 'checked' => 'false',
                 'allow_null' => 'false',
                 'multiple' => 'false',
@@ -227,7 +227,8 @@ if ( ! function_exists( 'ptc_video_block_output' ) ) :
      * @param array  $attributes - block attributes.
      */
     function ptc_video_block_output( $output, $attributes ) {
-        ob_start();    
+        ob_start();
+        $object = new Ptc_Blocks();
         // WP_Query arguments
         $args = array(
             'post_type'             => array( 'post' ),
@@ -245,7 +246,7 @@ if ( ! function_exists( 'ptc_video_block_output' ) ) :
                     'cat_id'	=> $attributes['link_cat_id'], 
                     'title'	=> $attributes['block_title'],
                 ];
-                ptc_the_block_title( $arr );
+                $object->ptc_the_block_title( $arr );
             } ?>
 
             <div class="b-2">
@@ -260,8 +261,8 @@ if ( ! function_exists( 'ptc_video_block_output' ) ) :
                     array(
                         'title'		=> get_the_title(),
                         'permalink'	=> get_the_permalink(),
-                        'date'		=> get_the_date(),
-                        'img_thumb' => ptc_get_the_post_thumbnail('large'),
+                        'date'		=> $object->ptc_posted_on(),
+                        'img_thumb' => $object->ptc_post_thumbnail('large'),
                     )
                 );
                 $min --;
