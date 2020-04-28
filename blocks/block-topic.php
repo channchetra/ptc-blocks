@@ -37,8 +37,8 @@ if ( function_exists( 'lazyblocks' ) ) :
         ),
         'slug' => 'lazyblock/block-topic',
         'description' => '',
-        'category' => 'common',
-        'category_label' => 'common',
+        'category' => 'egov-block',
+        'category_label' => 'egov-block',
         'supports' => array(
             'customClassName' => true,
             'anchor' => false,
@@ -58,75 +58,11 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_dfe81a426a' => array(
-                'type' => 'url',
-                'name' => 'image-link',
-                'default' => '',
-                'label' => 'image link',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'content',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-            ),
-            'control_941a7d4ba5' => array(
-                'type' => 'image',
-                'name' => 'image',
-                'default' => '',
-                'label' => 'image',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'content',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-            ),
-            'control_78eb874248' => array(
-                'type' => 'text',
-                'name' => 'title',
-                'default' => '',
-                'label' => 'title',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'content',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-            ),
-            'control_51eb5445c3' => array(
-                'type' => 'textarea',
-                'name' => 'description',
-                'default' => '',
-                'label' => 'description',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'content',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-            ),
-            'control_2ac95d49db' => array(
-                'type' => 'url',
-                'name' => 'image-link',
-                'default' => '',
-                'label' => 'Image Link',
+            'control_299a5748b6' => array(
+                'type' => 'range',
+                'name' => 'post-per-block',
+                'default' => '1',
+                'label' => 'Post per block',
                 'help' => '',
                 'child_of' => '',
                 'placement' => 'inspector',
@@ -135,56 +71,10 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'placeholder' => '',
+                'placeholder' => 'Show post per block',
                 'characters_limit' => '',
-            ),
-            'control_d37a0b4c67' => array(
-                'type' => 'image',
-                'name' => 'image',
-                'default' => '',
-                'label' => 'Image',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'inspector',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-            ),
-            'control_37fa614faa' => array(
-                'type' => 'text',
-                'name' => 'title',
-                'default' => '',
-                'label' => 'Title',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'inspector',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-            ),
-            'control_705b94423e' => array(
-                'type' => 'textarea',
-                'name' => 'description',
-                'default' => '',
-                'label' => 'Description',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'inspector',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
+                'min' => '1',
+                'max' => '30',
             ),
         ),
         'code' => array(
@@ -226,32 +116,58 @@ if ( ! function_exists( 'ptc_topic_output' ) ) :
             'posts_per_page'	=> $attributes['posts_per_page'],
             'cat'				=> $attributes['cat_id']
         ];
-        
-        // The Query
-        $slider_query = new WP_Query( $args );
-        // The Loop
-        if ( $slider_query->have_posts() ) { ?>
-        <!-- </div> -->
-        <section class=" class="main-slideshow slick-slideshow" data-slick='{"adaptiveHeight": false, "mobileFirst": true, "pauseOnDotsHover": true, "dots": true, "autoplay": true, "autoplaySpeed": 3000, "arrows": false, "cssEase": "ease-in-out"}'>
-            <?php
-                while ( $slider_query->have_posts() ) :
-                    $slider_query->the_post(); ?>
-                    <figure data-id="slide-01">
-                        <div class="aspectratio-md-21-9 aspectratio-16-9">
-                            <div class="img" style="background-image: url(<?php echo ptc_get_the_post_thumbnail('large'); ?>);" ></div>
-                        </div>
-                        <figcaption>
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </figcaption>
-                    </figure>
-            <?php
-            endwhile; ?>
-           
-        </section>
+        ?>
+        <div class="block-topic">
+            <table class="table table-bordered">
+                <tbody>
+                <?php 
+                // the query
+                $topic_query = new WP_Query( $args );
+                
+                if ( $topic_query->have_posts() ) : $i = 0 ?>
+                
+                    <!-- pagination here -->
+                
+                    <!-- the loop -->
+                    <?php while ( $topic_query->have_posts() ) : $topic_query->the_post(); ?>
+                    <?php if ($i % 3 == 0) {
+                        echo '<tr>';
+                    } ?>
+                        <td>
+                            <article>
+                                <figure class="d-lg-flex">
+                                    <a href="service-list.html">
+                                        <img src="http://portal:8888/wp-content/themes/cambodia-portal/dist/images/content/health-icon.png" alt="Health">
+                                    </a>
+                                    <figcaption>
+                                        <a href="service-list.html">
+                                            <h5><?php the_title(); ?></h5>
+                                        </a>
+                                        <p class="d-none d-lg-block"><?php the_excerpt(); ?></p>
+                                    </figcaption>
+                                </figure>
+                            </article>
+                        </td>
+                    <?php
+                        $i++;
+                        if ($i != 0 && $i % 3 == 0) {
+                            echo '</tr>';
+                        }
+                    ?> 
+                    <?php endwhile; ?>
+                    <!-- end of the loop -->
+                
+                    <!-- pagination here -->
+                
+                    <?php wp_reset_postdata(); ?>
+                
+                <?php else : ?>
+                    <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
         <?php
-        }
-        // Restore original Post Data
-        wp_reset_postdata();
         // Return code
         return ob_get_clean();
     }

@@ -30,15 +30,19 @@
 if ( function_exists( 'lazyblocks' ) ) :
 
     lazyblocks()->add_block( array(
-        'id' => 58,
-        'title' => 'Block Service',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z" /></svg>',
+        'id' => 324,
+        'title' => 'Service Mobile',
+        'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <rect opacity="0.25" width="15" height="15" rx="4" transform="matrix(-1 0 0 1 22 7)" fill="currentColor" />
+    <rect width="15" height="15" rx="4" transform="matrix(-1 0 0 1 17 2)" fill="currentColor" />
+    </svg>
+    ',
         'keywords' => array(
         ),
-        'slug' => 'lazyblock/block-service',
+        'slug' => 'lazyblock/service-mobile',
         'description' => '',
-        'category' => 'egov-block',
-        'category_label' => 'egov-block',
+        'category' => 'common',
+        'category_label' => 'common',
         'supports' => array(
             'customClassName' => true,
             'anchor' => false,
@@ -58,8 +62,8 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_c1cbcc4089' => array(
-                'type' => 'textarea',
+            'control_7ac8a14e8b' => array(
+                'type' => 'text',
                 'name' => 'title',
                 'default' => '',
                 'label' => 'Title',
@@ -71,10 +75,10 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'placeholder' => 'Title block lists',
+                'placeholder' => '',
                 'characters_limit' => '',
             ),
-            'control_fa288944b3' => array(
+            'control_47e8b0454f' => array(
                 'type' => 'repeater',
                 'name' => 'service-item',
                 'default' => '',
@@ -90,29 +94,29 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'placeholder' => '',
                 'characters_limit' => '',
             ),
-            'control_17eb8b4c61' => array(
+            'control_92391d46aa' => array(
                 'type' => 'text',
                 'name' => 'service-name',
                 'default' => '',
                 'label' => 'Service name',
                 'help' => '',
-                'child_of' => 'control_fa288944b3',
+                'child_of' => 'control_47e8b0454f',
                 'placement' => 'content',
                 'width' => '100',
                 'hide_if_not_selected' => 'false',
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'placeholder' => 'Service name',
+                'placeholder' => '',
                 'characters_limit' => '',
             ),
-            'control_e639434dd2' => array(
+            'control_c958954c1e' => array(
                 'type' => 'url',
                 'name' => 'url',
                 'default' => '',
                 'label' => 'Url',
                 'help' => '',
-                'child_of' => 'control_fa288944b3',
+                'child_of' => 'control_47e8b0454f',
                 'placement' => 'content',
                 'width' => '100',
                 'hide_if_not_selected' => 'false',
@@ -131,8 +135,8 @@ if ( function_exists( 'lazyblocks' ) ) :
             'frontend_callback' => '',
             'frontend_css' => '',
             'show_preview' => 'always',
-            'single_output' => true,
-            'use_php' => true,
+            'single_output' => false,
+            'use_php' => false,
         ),
         'condition' => array(
             0 => 'page',
@@ -143,10 +147,10 @@ endif;
 
 
 // filter for Frontend output.
-add_filter( 'lazyblock/block-service/frontend_callback', 'ptc_service_row_output', 10, 2 );
+add_filter( 'lazyblock/block-service/frontend_callback', 'ptc_service_mobile_output', 10, 2 );
 // filter for Editor output.
-add_filter( 'lazyblock/block-service/editor_callback', 'ptc_service_row_output', 10, 2 );
-if ( ! function_exists( 'ptc_service_row_output' ) ) :
+add_filter( 'lazyblock/block-service/editor_callback', 'ptc_service_mobile_output', 10, 2 );
+if ( ! function_exists( 'ptc_service_mobile_output' ) ) :
     /**
      * Test Render Callback
      *
@@ -154,21 +158,43 @@ if ( ! function_exists( 'ptc_service_row_output' ) ) :
      * @param array  $attributes - block attributes.
      * 
      */
-    function ptc_service_row_output( $output, $attributes ) {
+    function ptc_service_mobile_output( $output, $attributes ) {
         ob_start();    
         // WP_Query arguments
         ?>
-        <li class="flex-fill">
-            <h5><?php echo $attributes['title']; ?></h5>
-                <ul>
-                <?php foreach( $attributes['service-item'] as $inner ): ?>
-                    <li class="d-flex justify-content-between">
-                        <a href="<?php echo esc_url( $inner['url']); ?>"><?php echo $inner['service-name']; ?></a>
-                        <i class="icofont-arrow-right"></i>
-                    </li>
-                <?php endforeach; ?>
-                </ul>
-        </li>
+        <div class="tab-content" id="accordion-tab-collapse">
+							
+            <div class="tab-pane show active" id="tab-01" role="tabpanel" aria-labelledby="tab-collapse-01">
+                <div class="collapse-title" id="heading-01">
+                    <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#collapse-01" aria-expanded="true" aria-controls="collapse-01">
+                        គោលនយោបាយ
+                    </button>
+                </div>
+                <div id="collapse-01" class="collapse show" aria-labelledby="heading-01" data-parent="#accordion-tab-collapse">
+                    <ul class="b-2 row wrap pb-0 primary-color tab-s-3">
+                        <li class="b-item-wrap col-12">
+                            <div class="b-item">
+                                <div class="b-title-wrap">
+                                    <div class="b-title margin-bottom-15"><a href="#">ការងាររដ្ឋបាលសម្រាប់ការចេញលិខិតអនុញ្ញាតបំពេញអាចម៍ដីកម្មសិទ្ធិឯកជនមិនលើសពី១០០០ម៉ែត្រការ៉េ ១. ដីក្នុងរាជធានីភ្នំពេញ ឬក្នុងក្រុងនៃខេត្តកណ្តាល ខេត្តព្រះសីហុន និងខេត្តសៀមរាបដែលមានទំហំដីក្រោម ១០០ម៉ែត្រការ៉េ</a></div>
+                                    <div class="b-cat"><span class="oi oi-eye"></span><a href="#">មើល</a><span class="oi oi-cloud-download"></span><a href="#">ទាញយក</a><span>ថ្ងៃ សៅរ៍ ទី ០២ ខែ កុម្ភៈ ឆ្នាំ ២០១៩</span></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="b-item-wrap col-12">
+                            <div class="b-item">
+                                <div class="b-title-wrap">
+                                    <div class="b-title margin-bottom-15"><a href="#">ការងាររដ្ឋបាលសម្រាប់ការចេញលិខិតអនុញ្ញាតបំពេញអាចម៍ដីកម្មសិទ្ធិឯកជនមិនលើសពី១០០០ម៉ែត្រការ៉េ ២. ដីក្នុងរាជធានីភ្នំពេញ ឬក្នុងក្រុងនៃខេត្តកណ្តាល ខេត្តព្រះសីហុន និងខេត្តសៀមរាបដែលមានទំហំចាប់ពី ១០០ម៉ែត្រការ៉េ ដល់ក្រោម ៥០០ម៉ែត្រការ៉េ</a></div>
+                                    <div class="b-cat"><span class="oi oi-eye"></span><a href="#">មើល</a><span class="oi oi-cloud-download"></span><a href="#">ទាញយក</a><span post-date="2019/01/28" class="">05 ថ្ងៃមុន</span><span>ថ្ងៃ សៅរ៍ ទី ០២ ខែ កុម្ភៈ ឆ្នាំ ២០១៩</span></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        
+
+        </div>
         <?php
         // Return code
         return ob_get_clean();
