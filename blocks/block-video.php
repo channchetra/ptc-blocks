@@ -33,7 +33,7 @@ if ( function_exists( 'lazyblocks' ) ) :
     lazyblocks()->add_block( array(
         'id' => 268,
         'title' => 'PTC Videos Block',
-        'icon' => 'dashicons dashicons-format-video',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z" /></svg>',
         'keywords' => array(
             0 => 'Video',
             1 => 'Gallaries',
@@ -61,7 +61,7 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_13787549df' => array(
+            'control_videos_title' => array(
                 'label' => 'Block Title',
                 'name' => 'block_title',
                 'type' => 'text',
@@ -95,82 +95,32 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsible' => 'true',
                 'rows_collapsed' => 'true',
             ),
-            'control_5fb94e407b' => array(
-                'label' => 'Category',
-                'name' => 'cat_id',
+            'control_video_cat' => array(
                 'type' => 'select',
-                'child_of' => '',
-                'default' => '',
-                'characters_limit' => '',
-                'placeholder' => '',
+                'name' => 'category',
+                'default' => 'select',
+                'label' => 'Category',
                 'help' => '',
+                'child_of' => '',
                 'placement' => 'inspector',
+                'width' => '100',
                 'hide_if_not_selected' => 'false',
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
+                'placeholder' => '',
+                'characters_limit' => '',
                 'choices' => $option->mptc_cat_listing(),
-                'checked' => 'false',
-                'allow_null' => 'false',
-                'multiple' => 'false',
-                'allowed_mime_types' => array(
-                ),
-                'alpha' => 'false',
-                'min' => '',
-                'max' => '',
-                'step' => '',
-                'date_time_picker' => 'date_time',
-                'multiline' => 'false',
-                'rows_min' => '',
-                'rows_max' => '',
-                'rows_label' => '',
-                'rows_add_button_label' => '',
-                'rows_collapsible' => 'true',
-                'rows_collapsed' => 'true',
             ),
-            'control_295aad4979' => array(
-                'label' => 'Link to',
-                'name' => 'link_cat_id',
-                'type' => 'text',
-                'child_of' => '',
-                'default' => '',
-                'characters_limit' => '',
-                'placeholder' => '',
-                'help' => '',
-                'placement' => 'inspector',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'choices' => array(
-                ),
-                'checked' => 'false',
-                'allow_null' => 'false',
-                'multiple' => 'false',
-                'allowed_mime_types' => array(
-                ),
-                'alpha' => 'false',
-                'min' => '',
-                'max' => '',
-                'step' => '',
-                'date_time_picker' => 'date_time',
-                'multiline' => 'false',
-                'rows_min' => '',
-                'rows_max' => '',
-                'rows_label' => '',
-                'rows_add_button_label' => '',
-                'rows_collapsible' => 'true',
-                'rows_collapsed' => 'true',
-            ),
-            'control_d549d246e0' => array(
-                'label' => 'Posts per Page',
+            'control_video_ppp' => array(
+                'label' => 'Posts/Page',
                 'name' => 'posts_per_page',
                 'type' => 'range',
                 'child_of' => '',
-                'default' => '',
+                'default' => '1',
                 'characters_limit' => '',
                 'placeholder' => '',
-                'help' => '',
+                'help' => 'Change Posts count will change layout too',
                 'placement' => 'inspector',
                 'hide_if_not_selected' => 'false',
                 'save_in_meta' => 'false',
@@ -184,9 +134,9 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'allowed_mime_types' => array(
                 ),
                 'alpha' => 'false',
-                'min' => '',
-                'max' => '',
-                'step' => '',
+                'min' => '1',
+                'max' => '3',
+                'step' => '1',
                 'date_time_picker' => 'date_time',
                 'multiline' => 'false',
                 'rows_min' => '',
@@ -215,7 +165,6 @@ if ( function_exists( 'lazyblocks' ) ) :
     
 endif;
 
-// filter for Frontend output.
 add_filter( 'lazyblock/ptc-video-block/frontend_callback', 'ptc_video_block_output', 10, 2 );
 // filter for Editor output.
 add_filter( 'lazyblock/ptc-video-block/editor_callback', 'ptc_video_block_output', 10, 2 );
@@ -235,68 +184,49 @@ if ( ! function_exists( 'ptc_video_block_output' ) ) :
             'post_status'           => array( 'publish' ),
             'posts_per_page'        => $attributes['posts_per_page'],
             // 'offset'        		=> $atts['offset'],
-            'cat'					=> $attributes['cat_id']
+            'cat'					=> $attributes['category']
         );
-        $block_video_query = new WP_Query( $args );
+        $video_query = new WP_Query( $args );
         // The Loop
-        if ( $block_video_query->have_posts() ) { 
+        if ( $video_query->have_posts() ) { 
             // To display the block title use the_block_title()
             if( $attributes['block_title'] != '' ){
                 $arr = [
-                    'cat_id'	=> $attributes['link_cat_id'], 
+                    'cat_id'	=> $attributes['category'], 
                     'title'	=> $attributes['block_title'],
                 ];
                 $object->ptc_the_block_title( $arr );
             } ?>
 
             <div class="b-2">
-
-            <?php
-            $min = 1;
-            $data = array();
-            while( $block_video_query -> have_posts() ) {
-                $block_video_query->the_post();
-                array_push( 
-                    $data, 
-                    array(
-                        'title'		=> get_the_title(),
-                        'permalink'	=> get_the_permalink(),
-                        'date'		=> $object->ptc_posted_on(),
-                        'img_thumb' => $object->ptc_post_thumbnail('large'),
-                    )
-                );
-                $min --;
-            }
-            if( $min > 0 ) {
-                while( $min > 0 ) {
-                    array_push( 
-                        $data, 
-                        array(
-                            'title' 	=> '',
-                            'permalink'	=> '',
-                            'date'		=> '',
-                            'img_thumb' => '',
-                        )
-                    );
-                    $min --;
-                }
-            }
-            $html = '<ul class="b-item-wrap youtube-player">
-                        <div class="b-item row">
-                            <div class="b-thumnail-wrap col-sm-7 col-xs-12">
-                                <div class="b-thumnail"><li class="embed-responsive embed-responsive-6by4"><div class="img" style="background-image: url(%s);left: 0;top: 0;right: 0;bottom: 0;position: absolute;background-size: cover;background-position: 50%%;background-repeat: no-repeat;"></div></li></div>
-                            </div>
-                            <div class="b-title-wrap col-sm-5 col-xs-12">
-                                <a href="%s" class="b-title d-block">%s</a>
-                                <div class="b-date">%s</div>
-                            </div>
-                        </div>
-                    </ul>';
-            foreach( $data as $arr ){
-                printf( $html,  $arr['img_thumb'],  $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 85, '...' ),  $arr['date'] );
-            }
-            ?>
-        </div>
+                <ul class="b-item-wrap youtube-player">
+                    <div class="b-item row">
+                        <?php
+                        $step = 0;
+                        $count = $attributes['posts_per_page'];
+                        $data = [];
+                        while( $video_query -> have_posts() ) {
+                            $video_query->the_post();
+                            $step++;
+                            $step == 1 && $count != 2 ? $class = 'col-sm-12' : $class = 'col-sm-6';
+                            $url = get_post_meta(get_the_ID(), '_mptc_video_url', true);
+                            array_push($data, [
+                                'class' => $class,
+                                'frame' => $object->video_frame($url)
+                            ]);
+                        }
+                        $render = '<div class="b-thumnail-wrap %s col-xs-12">
+                                        <div class="b-thumnail">
+                                            <li class="embed-responsive embed-responsive-6by4">%s</li>
+                                        </div>
+                                    </div>';
+                        foreach($data as $key){
+                            printf($render, $key['class'], $key['frame']);
+                        }
+                        ?>
+                    </div>
+                </ul>
+            </div>
         <?php
         }
         wp_reset_postdata();

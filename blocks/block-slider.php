@@ -27,6 +27,7 @@
  * @subpackage Ptc_Blocks/blocks
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
+$option = new Ptc_Blocks();
 if ( function_exists( 'lazyblocks' ) ) :
 
     lazyblocks()->add_block( array(
@@ -60,49 +61,32 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_3179dd4441' => array(
+            'control_slider_cat' => array(
+                'type' => 'select',
+                'name' => 'category',
+                'default' => 'select',
                 'label' => 'Category',
-                'name' => 'cat_id',
-                'type' => 'number',
-                'child_of' => '',
-                'default' => '',
-                'characters_limit' => '',
-                'placeholder' => '',
                 'help' => '',
+                'child_of' => '',
                 'placement' => 'inspector',
+                'width' => '100',
                 'hide_if_not_selected' => 'false',
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'choices' => array(
-                ),
-                'checked' => 'false',
-                'allow_null' => 'false',
-                'multiple' => 'false',
-                'allowed_mime_types' => array(
-                ),
-                'alpha' => 'false',
-                'min' => '',
-                'max' => '',
-                'step' => '',
-                'date_time_picker' => 'date_time',
-                'multiline' => 'false',
-                'rows_min' => '',
-                'rows_max' => '',
-                'rows_label' => '',
-                'rows_add_button_label' => '',
-                'rows_collapsible' => 'true',
-                'rows_collapsed' => 'true',
+                'placeholder' => '',
+                'characters_limit' => '',
+                'choices' => $option->mptc_cat_listing(),
             ),
             'control_f5dbea4dca' => array(
-                'label' => 'Posts per Page',
+                'label' => 'Posts/Page',
                 'name' => 'posts_per_page',
                 'type' => 'range',
                 'child_of' => '',
                 'default' => '',
                 'characters_limit' => '',
                 'placeholder' => '',
-                'help' => '',
+                'help' => 'Select Post amount to show in Carousel',
                 'placement' => 'inspector',
                 'hide_if_not_selected' => 'false',
                 'save_in_meta' => 'false',
@@ -160,13 +144,14 @@ if ( ! function_exists( 'ptc_slider_output' ) ) :
      * @param array  $attributes - block attributes.
      */
     function ptc_slider_output( $output, $attributes ) {
-        ob_start();    
+        ob_start();
+        $obj = new Ptc_Blocks(); 
         // WP_Query arguments
         $args = [
             'post_type'			=> ['post'],
             'post_status'		=> ['publish'],
             'posts_per_page'	=> $attributes['posts_per_page'],
-            'cat'				=> $attributes['cat_id']
+            'cat'				=> $attributes['category']
         ];
         
         // The Query
@@ -182,7 +167,7 @@ if ( ! function_exists( 'ptc_slider_output' ) ) :
                 <div class="slick-item">
                     <div class="slick-photo">
                         <div class="aspect-ratio">
-                            <div class="img" style="background-image: url(<?php echo ptc_get_the_post_thumbnail('large'); ?>);" ></div>
+                            <div class="img" style="background-image: url(<?php echo $obj->ptc_post_thumbnail('large'); ?>);" ></div>
                         </div>
                     </div>
                     <div class="primary-background-color">
