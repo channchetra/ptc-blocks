@@ -60,20 +60,22 @@ register_deactivation_hook( __FILE__, 'deactivate_ptc_blocks' );
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
+ * by Chetra
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-ptc-blocks.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-1.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-slider.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-video.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-gallery.php';
-require plugin_dir_path( __FILE__ ) . 'blocks/block-link.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-other-link.php';
+/**
+ * by Thaily
+ */
 // require plugin_dir_path( __FILE__ ) . 'blocks/block-slider-full.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-service-row.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-message.php';
 // require plugin_dir_path( __FILE__ ) . 'blocks/block-explore.php';
 // require plugin_dir_path( __FILE__ ) . 'blocks/block-link.php';
-require plugin_dir_path( __FILE__ ) . 'blocks/block-other-link.php';
-require plugin_dir_path( __FILE__ ) . 'blocks/block-video-two.php';
 /**
  * Begins execution of the plugin.
  *

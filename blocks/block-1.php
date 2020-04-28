@@ -231,6 +231,23 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsible' => 'true',
                 'rows_collapsed' => 'true',
             ),
+            'control_ptc_listhide_b_1' => array(
+                'type' => 'toggle',
+                'name' => 'hide_title',
+                'default' => '',
+                'label' => 'Hide Title',
+                'help' => '',
+                'child_of' => '',
+                'placement' => 'inspector',
+                'width' => '100',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'placeholder' => '',
+                'characters_limit' => '',
+                'alongside_text' => 'Disable block title',
+            ),
         ),
         'code' => array(
             'editor_html' => '',
@@ -276,7 +293,7 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
         // The Loop
         if ( $block_1_query->have_posts() ) { 
             // To display the block title use the_block_title()
-            if( $attributes['block_title'] != '' ){
+            if( $attributes['block_title'] != '' && $attributes['hide_title'] == false){
                 $arr = [
                     'cat_id'	=> $attributes['link_cat_id'], 
                     'title'	=> $attributes['block_title'],
