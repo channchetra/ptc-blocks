@@ -28,17 +28,18 @@
  * @author     Chan Thaily <thaily-chan@mptc.gov.kh>
  */
 if ( function_exists( 'lazyblocks' ) ) :
+    $topic_obj = new Ptc_Blocks();
 
     lazyblocks()->add_block( array(
-        'id' => 60,
+        'id' => 366,
         'title' => 'Block Topic',
         'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z" /></svg>',
         'keywords' => array(
         ),
         'slug' => 'lazyblock/block-topic',
         'description' => '',
-        'category' => 'egov-block',
-        'category_label' => 'egov-block',
+        'category' => 'common',
+        'category_label' => 'common',
         'supports' => array(
             'customClassName' => true,
             'anchor' => false,
@@ -58,11 +59,11 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_299a5748b6' => array(
-                'type' => 'range',
-                'name' => 'post-per-block',
-                'default' => '1',
-                'label' => 'Post per block',
+            'control_3caab74ce6' => array(
+                'type' => 'select',
+                'name' => 'category',
+                'default' => '',
+                'label' => 'Category',
                 'help' => '',
                 'child_of' => '',
                 'placement' => 'inspector',
@@ -71,10 +72,25 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'placeholder' => 'Show post per block',
+                'placeholder' => '',
                 'characters_limit' => '',
-                'min' => '1',
-                'max' => '30',
+                'choices' => $topic_obj->mptc_cat_listing('category'),
+            ),
+            'control_64b9ab4d01' => array(
+                'type' => 'number',
+                'name' => 'posts-per-block',
+                'default' => '',
+                'label' => 'Posts per block',
+                'help' => '',
+                'child_of' => '',
+                'placement' => 'inspector',
+                'width' => '100',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'placeholder' => '',
+                'characters_limit' => '',
             ),
         ),
         'code' => array(
@@ -110,11 +126,18 @@ if ( ! function_exists( 'ptc_topic_output' ) ) :
     function ptc_topic_output( $output, $attributes ) {
         ob_start();    
         // WP_Query arguments
+        $topic_obj = new Ptc_Blocks();
         $args = [
             'post_type'			=> ['post'],
             'post_status'		=> ['publish'],
-            'posts_per_page'	=> $attributes['posts_per_page'],
-            'cat'				=> $attributes['cat_id']
+            'posts_per_page'	=> $attributes['posts-per-page'],
+            'tax_qurey'         => [
+                [
+                    'taxonomy'  => 'category',
+                    'field'     => 'term_id',
+                    'terms'     =>  $attributes['category']
+                ]
+            ]
         ];
         ?>
         <div class="block-topic">
@@ -136,11 +159,11 @@ if ( ! function_exists( 'ptc_topic_output' ) ) :
                         <td>
                             <article>
                                 <figure class="d-lg-flex">
-                                    <a href="service-list.html">
-                                        <img src="http://portal:8888/wp-content/themes/cambodia-portal/dist/images/content/health-icon.png" alt="Health">
+                                    <a href="<?php permalink_link() ?>">
+                                        <img src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
                                     </a>
                                     <figcaption>
-                                        <a href="service-list.html">
+                                        <a href="<?php permalink_link() ?>">
                                             <h5><?php the_title(); ?></h5>
                                         </a>
                                         <p class="d-none d-lg-block"><?php the_excerpt(); ?></p>

@@ -28,13 +28,12 @@
  * @author     Chan Thaily <thaily-chan@mptc.gov.kh>
  */
 if ( function_exists( 'lazyblocks' ) ) :
-
-    $type = new Ptc_Blocks();
+    $service_obj = new Ptc_Blocks();
 
     lazyblocks()->add_block( array(
-        'id' => 58,
+        'id' => 380,
         'title' => 'Block Service',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z" /></svg>',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z" /></svg>',
         'keywords' => array(
         ),
         'slug' => 'lazyblock/block-service',
@@ -60,49 +59,11 @@ if ( function_exists( 'lazyblocks' ) ) :
             ),
         ),
         'controls' => array(
-            'control_c1cbcc4089' => array(
-                'type' => 'textarea',
-                'name' => 'title',
-                'default' => '',
-                'label' => 'Title',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'inspector',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => 'Title block lists',
-                'characters_limit' => '',
-            ),
-            'control_c1cbcc4frd4' => array(
-                'type' => 'select',
-                'name' => 'service-type',
-                'default' => '',
-                'label' => 'Service Type',
-                'help' => '',
-                'child_of' => '',
-                'placement' => 'inspector',
-                'width' => '100',
-                'hide_if_not_selected' => 'false',
-                'save_in_meta' => 'false',
-                'save_in_meta_name' => '',
-                'required' => 'false',
-                'placeholder' => '',
-                'characters_limit' => '',
-                // 'choices' => [
-                //     ['label' => 'Hello',
-                //     'value' => 'hello']
-                // ],
-                'choices' => $type->mptc_cat_listing('service'),
-                'multiple' => 'false',
-            ),
-            'control_fa288944b3' => array(
+            'control_71692e412d' => array(
                 'type' => 'repeater',
                 'name' => 'service-item',
                 'default' => '',
-                'label' => 'Service item',
+                'label' => 'Service Item',
                 'help' => '',
                 'child_of' => '',
                 'placement' => 'inspector',
@@ -113,30 +74,49 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'required' => 'false',
                 'placeholder' => '',
                 'characters_limit' => '',
+                'rows_add_button_label' => 'Add Service Items',
+                'rows_label' => 'Service Row',
             ),
-            'control_17eb8b4c61' => array(
+            'control_3398064d2b' => array(
                 'type' => 'text',
-                'name' => 'service-name',
+                'name' => 'service',
                 'default' => '',
-                'label' => 'Service name',
+                'label' => 'Service Title',
                 'help' => '',
-                'child_of' => 'control_fa288944b3',
+                'child_of' => 'control_71692e412d',
                 'placement' => 'content',
                 'width' => '100',
                 'hide_if_not_selected' => 'false',
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'placeholder' => 'Service name',
+                'placeholder' => '',
                 'characters_limit' => '',
             ),
-            'control_e639434dd2' => array(
-                'type' => 'url',
-                'name' => 'url',
+            'control_4a5b744cd3' => array(
+                'type' => 'select',
+                'name' => 'service-category',
                 'default' => '',
-                'label' => 'Url',
+                'label' => 'Service category',
                 'help' => '',
-                'child_of' => 'control_fa288944b3',
+                'child_of' => 'control_71692e412d',
+                'placement' => 'content',
+                'width' => '100',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'placeholder' => '',
+                'characters_limit' => '',
+                'choices' => $service_obj->mptc_cat_listing('service-type'),
+            ),
+            'control_412bbe4502' => array(
+                'type' => 'number',
+                'name' => 'posts-per-page',
+                'default' => '',
+                'label' => 'Posts per page',
+                'help' => '',
+                'child_of' => 'control_71692e412d',
                 'placement' => 'content',
                 'width' => '100',
                 'hide_if_not_selected' => 'false',
@@ -169,7 +149,7 @@ endif;
 // filter for Frontend output.
 add_filter( 'lazyblock/block-service/frontend_callback', 'ptc_service_row_output', 10, 2 );
 // filter for Editor output.
-add_filter( 'lazyblock/block-service/editor_callback', 'ptc_service_row_output', 10, 2 );
+// add_filter( 'lazyblock/block-service/editor_callback', 'ptc_service_row_output', 10, 2 );
 if ( ! function_exists( 'ptc_service_row_output' ) ) :
     /**
      * Test Render Callback
@@ -178,24 +158,71 @@ if ( ! function_exists( 'ptc_service_row_output' ) ) :
      * @param array  $attributes - block attributes.
      * 
      */
-    function ptc_service_row_output( $output, $attributes ) {
-        ob_start();    
-        // WP_Query arguments
-        ?>
-        <li class="flex-fill">
-            <h5><?php echo $attributes['title']; ?></h5>
-                <ul>
-                <?php foreach( $attributes['service-item'] as $inner ): ?>
-                    <li class="d-flex justify-content-between">
-                        <a href="<?php echo esc_url( $inner['url']); ?>"><?php echo $inner['service-name']; ?></a>
-                        <i class="icofont-arrow-right"></i>
-                    </li>
-                <?php endforeach; ?>
-                </ul>
-        </li>
-        <?php
-        // Return code
+    function ptc_service_row_output( $output, $attributes ) { 
+
+        ob_start();
+        echo '<div class="lg block-flex-tab d-lg-block d-none">';
+        echo '<ul class="d-flex">';
+        foreach ( $attributes['service-item'] as $attribute ) {
+            // echo '<pre>';
+            // print_r($attribute);
+            // echo '</pre>';
+            printf(
+                '
+                    <li class="flex-fill">
+                    <h5><i class="icofont-users-alt-3"></i>%s</h5>
+                    <ul>
+                ',
+                'Title'
+            );
+            $args = array(
+                'post_type' => 'service',
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'service-type',
+                        'field'    => 'id',
+                        'terms'    => $attribute['service-category'],
+                    ),
+                ),
+            );
+            $query = new WP_Query( $args );
+            // The Loop
+            if ( $query->have_posts() ) {
+                while ( $query->have_posts() ) {
+                    $query->the_post();
+
+                    printf (
+                        '
+                        <li class="d-flex justify-content-between">
+                            <a href="service-list.html">%s</a><i class="icofont-arrow-right"></i>
+                        </li>
+                        ',
+                        get_the_title()
+                    );
+
+
+                }
+                
+            } else {
+                // no posts found
+                echo 'No Post';
+            }
+            wp_reset_postdata();
+            
+            
+            
+            echo '</ul>';
+            echo '</li>';
+                
+        }
+        echo '</ul>';
+        echo '</div>';
         return ob_get_clean();
+
+        
+        
+       
+        
     }
 endif;
 // disable block frontend wrapper.
