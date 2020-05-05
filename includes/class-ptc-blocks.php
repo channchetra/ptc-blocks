@@ -270,8 +270,19 @@ class Ptc_Blocks {
 		array_push($data, $arr_none);
 		return $data;
 	}
-	 /**
-	 * Function ធ្វើការ Print ចេញនូវការបរិច្ឆេទ Post និមួយៗដែលត្រូវបង្ហាញក្នុង Blocks
+	
+	/**
+	 * Function for retrive array of taxonomy
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function get_mptc_custom_term( $name = 'category' ){
+		return $this->custom_get_terms($name);
+	}
+
+	/**
+	* Function ធ្វើការ Print ចេញនូវការបរិច្ឆេទ Post និមួយៗដែលត្រូវបង្ហាញក្នុង Blocks
 	*
 	* @return void
 	*/

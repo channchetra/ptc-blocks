@@ -28,7 +28,7 @@
  * @author     Chann Chetra <chetra-chann@mptc.gov.kh>
  */
 if ( function_exists( 'lazyblocks' ) ) :
-
+    $option = new Ptc_Blocks();
     lazyblocks()->add_block( array(
         'id' => 277,
         'title' => 'PTC Block Picture',
@@ -95,9 +95,9 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'rows_collapsed' => 'true',
             ),
             'control_aac8024828' => array(
-                'label' => 'Category ID',
+                'label' => 'Category',
                 'name' => 'cat_id',
-                'type' => 'number',
+                'type' => 'select',
                 'child_of' => '',
                 'default' => '',
                 'characters_limit' => '',
@@ -108,8 +108,7 @@ if ( function_exists( 'lazyblocks' ) ) :
                 'save_in_meta' => 'false',
                 'save_in_meta_name' => '',
                 'required' => 'false',
-                'choices' => array(
-                ),
+                'choices' => $option->mptc_cat_listing(),
                 'checked' => 'false',
                 'allow_null' => 'false',
                 'multiple' => 'false',

@@ -69,7 +69,7 @@ if ( function_exists( 'lazyblocks' ) ) :
             'control_2088324ca1' => array(
                 'type' => 'text',
                 'name' => 'item-name',
-                'default' => '',
+                'default' => 'Link to',
                 'label' => 'Item name',
                 'help' => '',
                 'child_of' => 'control_9bba634952',
@@ -210,11 +210,13 @@ if ( ! function_exists( 'ptc_other_link_block_output' ) ) :
         $attributes['text-only'] ? $output .= '<div class="b-5">' : $output .= '<div class="b-4">';
         $output .= '<ul>'; 
         foreach( $attributes['items'] as $inner ):
+            $link = isset( $inner['link'] ) ? $inner['link'] : '#';
+            $name = isset( $inner['item-name'] ) ? $inner['item-name'] : '';
             $output .= '<li>';
             if ( isset( $inner['image']['url'] ) ) :
                 $output .= '<img src="' . esc_url($inner['image']['url']) . '" alt="'. esc_url($inner['image']['alt']) . '">';
             endif;
-                $output .='<a href="' . esc_url($inner['link']) . '">' . $inner['item-name'] . '</a>';
+                $output .='<a href="' . esc_url( $link ) . '">' . $name . '</a>';
             $output .= '</li>';
             endforeach;
         $output .= '</ul></div>';

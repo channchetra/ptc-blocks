@@ -68,6 +68,8 @@ require plugin_dir_path( __FILE__ ) . 'blocks/block-slider.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-video.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-gallery.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-other-link.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-collapse.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-minister.php';
 /**
  * by Thaily
  */
