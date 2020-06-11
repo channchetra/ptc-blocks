@@ -70,16 +70,19 @@ require plugin_dir_path( __FILE__ ) . 'blocks/block-gallery.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-other-link.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-collapse.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-minister.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-content-gallery.php';
+require plugin_dir_path( __FILE__ ) . 'blocks/block-search.php';
 /**
  * by Thaily
  */
-// require plugin_dir_path( __FILE__ ) . 'blocks/block-slider-full.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-service-row.php';
-// require plugin_dir_path( __FILE__ ) . 'blocks/block-service-mobile.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-message.php';
 require plugin_dir_path( __FILE__ ) . 'blocks/block-topic.php';
-// require plugin_dir_path( __FILE__ ) . 'blocks/block-explore.php';
-// require plugin_dir_path( __FILE__ ) . 'blocks/block-link.php';
+
+// function ptc_load_plugin_textdomain() {
+//     load_plugin_textdomain( 'ptc-blocks', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+// }
+// add_action( 'plugins_loaded', 'ptc_load_plugin_textdomain' );
 /**
  * Begins execution of the plugin.
  *

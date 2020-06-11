@@ -401,4 +401,35 @@ class Ptc_Blocks {
 		$render = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' . $vdo_id . '" frameborder="0" allowfullscreen=""></iframe>';
 		return $render;
 	}
+	/**
+	 * Functions បង្ហាញ Button Download និង Views នៅលើ Block Collapse 
+	 */
+	public function mptc_download_view()
+	{
+		$document = get_post_meta(get_the_ID(), '_mptc_document_file', true);
+		$url = get_site_url();
+		$upload_url = wp_upload_dir();
+		/**
+		* ឆែកមើលបើសិន Document file អត់មានផ្ទុក home url
+		* _mptc_document_file ជា custom meta key ដែលកើតមាននៅពេល Active MPTC Field Plugin
+		* ត្រូវបន្ថែម Upload Directory ទៅកាន់ Link ជាមុន (សម្រាប់ទិន្នន័យពី Website ចាស់)
+		*/
+		strpos($document, $url) !== false ? $d_link = $document : $d_link = $upload_url['baseurl'].'/'.$document;
+		if (!empty($document)) {
+			return '<a href="'. $d_link . '"><span class="oi oi-cloud-download"></span>' . __('ទាញយក', 'ptc-blocks') . '</a>';
+		} else {
+			return '<a href="' . get_the_permalink() . '"><span class="oi oi-eye"></span>' . __('បើកមើល', 'ptc-blocks') . '</a>';
+		}
+	}
+	/**
+	 * function printout readmore and link for block
+	 *
+	 * @param [type] $link
+	 * @return void
+	 */
+	public function ptc_readmore($link){
+		$cat_url = get_category_link( $link );
+		$render_footer = '<div class="d-block pb-3 text-right"><a href="%s">%s<span class="fa fa-angle-double-right"></span></a></div>';
+		printf($render_footer, $cat_url, __('មានបន្ត', 'ptc-blocks'));
+	}
 }

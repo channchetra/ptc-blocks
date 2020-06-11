@@ -294,17 +294,13 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
         if ( $block_1_query->have_posts() ) { 
             // To display the block title use the_block_title()
             if( $attributes['block_title'] != '' && $attributes['hide_title'] == false){
-                $arr = [
-                    'cat_id'	=> $attributes['link_cat_id'], 
-                    'title'	=> $attributes['block_title'],
-                ];
-                $the_att->ptc_the_block_title( $arr );
+                echo '<div class="block-title2 primary-color"><h3 class="primary-color" href="#">' . $attributes['block_title'] . '</h3></div>';
             } ?>
 
             <div class="b-2">
 
             <?php
-            $min = 4;
+            $min = 3;
             $data = array();
             while( $block_1_query -> have_posts() ) {
                 $block_1_query->the_post();
@@ -334,15 +330,14 @@ if ( ! function_exists( 'ptc_block_01' ) ) :
             $html = '<div class="b-item-wrap">
                         <div class="b-item">
                             <div class="b-title margin-bottom-15"><a href="%s">%s</a></div>
-                            <div class="b-cat">%s</div>
+                            <div class="b-cat"><i class="icofont-ui-calendar"></i>%s</div>
                         </div>
                     </div>';
             foreach( $data as $arr ){
-                printf( $html, $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 85, '...' ),  $arr['date'] );
+                printf( $html, $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 120, '...' ),  $arr['date'] );
             }
-            ?>
-        </div>
-        <?php
+            echo '</div>';
+            $the_att->ptc_readmore($attributes['cat_id']);
         }
         wp_reset_postdata();
         // Return code

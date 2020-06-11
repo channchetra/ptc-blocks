@@ -173,9 +173,9 @@ if ( ! function_exists( 'mptc_minister_block_output' ) ) :
         endif;
         $render_title = '<img class="avatar" src="%s" />
         <div class="block-title3 mb-0 primary-background-color">
-            <a title="មានបន្ត" href="#">%s</a>
+            <a title="%s" href="%s">%s</a>
         </div>';
-        printf($render_title, $header, $attributes['block-title']);
+        printf($render_title, $header, __('មានបន្ត', 'PTC Block'), $attributes['link-to'], $attributes['block-title']);
         
         $args = array(
             'post_type'             => array( 'post' ),
@@ -208,6 +208,7 @@ if ( ! function_exists( 'mptc_minister_block_output' ) ) :
             foreach($outputs as $output) :
                 printf($render_content, $output['link'], $output['title'], $output['metas'] );
             endforeach;
+            echo '<li class="b-item-wrap">'. $object->ptc_readmore($attributes['category']) . '</li>';
             echo '</ul>';
         endif;
         wp_reset_postdata();

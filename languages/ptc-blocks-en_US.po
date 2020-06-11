@@ -4,15 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PTC Block 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ptc-blocks\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2020-05-18T10:53:01+02:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.2.0\n"
+"PO-Revision-Date: 2020-05-18 15:56+0700\n"
+"X-Generator: Poedit 2.2\n"
 "X-Domain: ptc-blocks\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
 
 #. Plugin Name of the plugin
 msgid "PTC Block"
@@ -23,7 +25,9 @@ msgid "https://www.mptc.gov.kh"
 msgstr ""
 
 #. Description of the plugin
-msgid "This is a short description of what the plugin does. It's displayed in the WordPress admin area."
+msgid ""
+"This is a short description of what the plugin does. It's displayed in the "
+"WordPress admin area."
 msgstr ""
 
 #. Author of the plugin
@@ -36,12 +40,12 @@ msgstr ""
 
 #: includes/class-ptc-blocks.php:419
 msgid "ទាញយក"
-msgstr ""
+msgstr "Download"
 
 #: includes/class-ptc-blocks.php:421
 msgid "បើកមើល"
-msgstr ""
+msgstr "Read Document"
 
 #: includes/class-ptc-blocks.php:433
 msgid "មានបន្ត"
-msgstr ""
+msgstr "Read More"

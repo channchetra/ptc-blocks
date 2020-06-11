@@ -191,11 +191,7 @@ if ( ! function_exists( 'ptc_video_block_output' ) ) :
         if ( $video_query->have_posts() ) { 
             // To display the block title use the_block_title()
             if( $attributes['block_title'] != '' ){
-                $arr = [
-                    'cat_id'	=> $attributes['category'], 
-                    'title'	=> $attributes['block_title'],
-                ];
-                $object->ptc_the_block_title( $arr );
+                echo '<div class="block-title2 primary-color"><h3 class="primary-color" href="#">' . $attributes['block_title'] . '</h3></div>';
             } ?>
 
             <div class="b-2">
@@ -212,20 +208,24 @@ if ( ! function_exists( 'ptc_video_block_output' ) ) :
                             $url = get_post_meta(get_the_ID(), '_mptc_video_url', true);
                             array_push($data, [
                                 'class' => $class,
-                                'frame' => $object->video_frame($url)
+                                'frame' => $object->video_frame($url),
+                                'title' => get_the_title()
                             ]);
                         }
                         $render = '<div class="b-thumnail-wrap %s col-xs-12">
                                         <div class="b-thumnail">
                                             <li class="embed-responsive embed-responsive-6by4">%s</li>
                                         </div>
+                                        <p>%s</p>
                                     </div>';
                         foreach($data as $key){
-                            printf($render, $key['class'], $key['frame']);
+                            printf($render, $key['class'], $key['frame'], $key['title']);
                         }
                         ?>
                     </div>
-                </ul>
+                </ul><?php
+                $object->ptc_readmore($attributes['category']);
+                ?>
             </div>
         <?php
         }

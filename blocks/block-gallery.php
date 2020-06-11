@@ -226,7 +226,8 @@ if ( ! function_exists( 'ptc_picture_block_output' ) ) :
      * @param array  $attributes - block attributes.
      */
     function ptc_picture_block_output( $output, $attributes ) {
-        ob_start();    
+        ob_start();
+        $object = new Ptc_Blocks();   
         // WP_Query arguments
         $args = array(
             'post_type'             => array( 'post' ),
@@ -240,11 +241,7 @@ if ( ! function_exists( 'ptc_picture_block_output' ) ) :
         if ( $block_picture_query->have_posts() ) { 
             // To display the block title use the_block_title()
             if( $attributes['block_title'] != '' ){
-                $arr = [
-                    'cat_id'	=> $attributes['link_cat_id'], 
-                    'title'	=> $attributes['block_title'],
-                ];
-                ptc_the_block_title( $arr );
+                echo '<div class="block-title2 primary-color"><h3 class="primary-color" href="#">' . $attributes['block_title'] . '</h3></div>';
             } ?>
 
             <div class="b-1">
@@ -260,7 +257,7 @@ if ( ! function_exists( 'ptc_picture_block_output' ) ) :
                         'title'		=> get_the_title(),
                         'permalink'	=> get_the_permalink(),
                         'date'		=> get_the_date(),
-                        'img_thumb' => ptc_get_the_post_thumbnail('large'),
+                        'img_thumb' => $object->ptc_post_thumbnail('large'),
                     )
                 );
                 $min --;
@@ -288,9 +285,8 @@ if ( ! function_exists( 'ptc_picture_block_output' ) ) :
             foreach( $data as $arr ){
                 printf( $html,  $arr['img_thumb'],  $arr['permalink'],  mb_strimwidth( $arr['title'], 0, 85, '...' ));
             }
-            ?>
-        </div>
-        <?php
+            echo '</div>';
+            $object->ptc_readmore($attributes['cat_id']);
         }
         wp_reset_postdata();
         // Return code

@@ -49,6 +49,22 @@ $option = new Ptc_Blocks();
                 'placeholder' => 'Collapse Title',
                 'characters_limit' => '',
             ),
+            'control_collape_link' => array(
+                'type' => 'url',
+                'name' => 'link',
+                'default' => '#',
+                'label' => 'Link title',
+                'help' => 'add link for block title',
+                'child_of' => '',
+                'placement' => 'inspector',
+                'width' => '100',
+                'hide_if_not_selected' => 'false',
+                'save_in_meta' => 'false',
+                'save_in_meta_name' => '',
+                'required' => 'false',
+                'placeholder' => '',
+                'characters_limit' => '',
+            ),
             'control_646ac64e91' => array(
                 'type' => 'repeater',
                 'name' => 'collapse-items',
@@ -145,7 +161,7 @@ $option = new Ptc_Blocks();
             'frontend_callback' => '',
             'frontend_css' => '',
             'show_preview' => 'always',
-            'single_output' => true,
+            'single_output' => false,
             'use_php' => true,
         ),
         'condition' => array(
@@ -157,7 +173,7 @@ endif;
 add_filter( 'lazyblock/ptc-block-collapse/frontend_callback', 'mptc_collapse_block_output', 10, 2 );
 
 // filter for Editor output.
-add_filter( 'lazyblock/ptc-block-collapse/editor_callback', 'mptc_collapse_block_output', 10, 2 );
+// add_filter( 'lazyblock/ptc-block-collapse/editor_callback', 'mptc_collapse_block_output', 10, 2 );
 
 if ( ! function_exists( 'mptc_collapse_block_output' ) ) :
     /**
@@ -171,11 +187,12 @@ if ( ! function_exists( 'mptc_collapse_block_output' ) ) :
         // $tax_list = $object->get_mptc_custom_term;
         ob_start();
         if( $attributes['block-title'] != ''){
-            $arr = [
-                'cat_id'	=> '', 
-                'title'	=> $attributes['block-title'],
-            ];
-            $object->ptc_the_block_title( $arr );
+            echo '<div class="block-title2 primary-color"><h3 class="primary-color" href="#">' . $attributes['block-title'] . '</h3></div>';
+            // $arr = [
+            //     'link'	=> $attributes['link'],
+            //     'title'	=> $attributes['block-title'],
+            // ];
+            // $object->ptc_the_block_title( $arr );
         }
         echo '<div class="d-md-flex flex-column tab-collapse">';
             echo '<div class="nav flex-row nav-collapse" id="tab-collapse" role="tablist" aria-orientation="vertical">';
@@ -213,7 +230,8 @@ if ( ! function_exists( 'mptc_collapse_block_output' ) ) :
                         $datas = [
                             'title' => get_the_title(),
                             'link'  => get_the_permalink(),
-                            'metas'  => $object->ptc_posted_on()
+                            'metas'  => $object->ptc_posted_on(),
+                            'downlink' => $object->mptc_download_view(),
                         ];
                         array_push( $outputs, $datas );
                     endwhile;
@@ -224,12 +242,12 @@ if ( ! function_exists( 'mptc_collapse_block_output' ) ) :
                                 <div class="b-item">
                                     <div class="b-title-wrap">
                                         <div class="b-title margin-bottom-15"><a href="%s">%s</a></div>
-                                        <div class="b-cat"><span>%s</span></div>
+                                        <div class="b-cat"><span>%s%s</span></div>
                                     </div>
                                 </div>
                             </li>';
                         foreach($outputs as $output) :
-                            printf( $render_inner, $output['link'], $output['title'], $output['metas']);
+                            printf( $render_inner, $output['link'], $output['title'], $output['downlink'], $output['metas']);
                         endforeach;
                     echo '</ul></div>';
                 endif;
